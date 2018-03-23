@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/orders/orders",
     "pages/index/index",
     "pages/newOrder/newOrder",
-    "pages/orders/orders",
     "pages/manageSellers/manageSellers",
     "pages/newSeller/newSeller",
     "pages/editOrder/editOrder"
@@ -19,12 +19,12 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页"
+        "pagePath": "pages/orders/orders",
+        "text": "订单"
       },
       {
-        "pagePath": "pages/orders/orders",
-        "text": "订单中心"
+        "pagePath": "pages/index/index",
+        "text": "我的"
       }
     ]
   }
