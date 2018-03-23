@@ -1,0 +1,64 @@
+<view class="page">
+
+  <view class="page__bd">
+    <view class="weui-cells__title">编辑订单</view>
+    <view class="weui-cells weui-cells_after-title">
+
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">编号</view>
+          <view class="weui-cell__ft">NB112233342</view>
+        </view>
+      </view>
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">到货日期</view>
+          <view class="weui-cell__ft">2018-3-21 19:00</view>
+        </view>
+      </view>
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">工地名称</view>
+          <view class="weui-cell__ft">工地1</view>
+        </view>
+      </view>
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">收货人电话</view>
+          <view class="weui-cell__ft">1355555555</view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">配送人(司机)</view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__bd">
+          <picker bindchange="bindAccountChange" value="{{accountIndex}}" range="{{accounts}}">
+            <view class="weui-select">{{accounts[accountIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+    <view class="weui-cells__title">状态</view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__bd">
+          <picker bindchange="bindStatusChange" value="{{statusIndex}}" range="{{status}}">
+            <view class="weui-select">{{status[statusIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+
+
+
+      <view style='padding-top:10px'>
+        <button class="weui-btn" type="primary" bindtap="showTopTips">保存订单</button>
+      </view>
+      <view style='padding-top:3px'>
+        <button class="weui-btn" type="warn">放弃修改</button>
+      </view>
+    </view>
+  </view>
+</view>
