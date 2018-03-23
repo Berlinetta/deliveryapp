@@ -20,11 +20,15 @@
     "list": [
       {
         "pagePath": "pages/orders/orders",
-        "text": "订单"
+        "text": "订单",
+        "iconPath": "resources/icons/orders_disabled.png",
+        "selectedIconPath": "resources/icons/orders.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "resources/icons/me_disabled.png",
+        "selectedIconPath": "resources/icons/me.png"
       }
     ]
   }
