@@ -1,4 +1,5 @@
 Component({
+  behaviors: ['wx://form-field'],
   properties: {
     title: {
       type: String,
@@ -9,12 +10,14 @@ Component({
       value: "",
     }
   },
-
   data: {
 
   },
-
   methods: {
-
+    updateValue: function (e) {
+      this.setData({
+        value: e.detail.value
+      })
+    }
   }
 })
