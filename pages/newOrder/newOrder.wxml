@@ -20,7 +20,7 @@
           <button class="weui-btn" type="primary" form-type="submit">提交订单</button>
         </view>
         <view style='padding-top:3px'>
-          <button class="weui-btn" type="warn">放弃提交</button>
+          <button bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
         </view>
       </form>
 

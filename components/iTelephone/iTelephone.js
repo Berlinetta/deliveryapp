@@ -4,6 +4,13 @@ Component({
     placeholder: {
       type: String,
       value: "",
+    },
+    value: {
+      type: Object,
+      value: {
+        countryCodeIndex: 0,
+        number: ""
+      }
     }
   },
   data: {

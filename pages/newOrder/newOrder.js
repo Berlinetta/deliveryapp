@@ -16,39 +16,34 @@ Page({
       number: "1345555555"
     }
   },
-
   onLoad: function (options) {
 
   },
-
   onReady: function () {
 
   },
-
   onShow: function () {
 
   },
-
   onHide: function () {
 
   },
-
   onUnload: function () {
 
   },
-
   onPullDownRefresh: function () {
 
   },
-
   onReachBottom: function () {
 
   },
-
   onShareAppMessage: function () {
 
   },
   formSubmit: function (event) {
     console.log(event.detail.value.consigneeTelephone);
+  },
+  cancelSubmit: function (event) {
+    wx.navigateBack();
   }
 })
