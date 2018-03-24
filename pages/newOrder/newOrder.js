@@ -7,7 +7,9 @@ Page({
     goodTypes: ["货物1", "货物2", "货物3"],
     goodTypeIndex: 0,
     goodModels: ["型号1", "型号2", "型号3"],
-    goodModelIndex: 0
+    goodModelIndex: 0,
+    goodCounts: ["10", "20", "30"],
+    goodCountIndex: 0
   },
 
   /**

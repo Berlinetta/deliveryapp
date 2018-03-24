@@ -1,0 +1,10 @@
+<view class="weui-cell weui-cell_input">
+  <view class="weui-cell__hd">
+    <view class="weui-label">{{title}}</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
+      <view class="weui-input">{{time}}</view>
+    </picker>
+  </view>
+</view>

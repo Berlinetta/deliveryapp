@@ -6,9 +6,9 @@
           <view class="weui-select">{{countryCodes[countryCodeIndex]}}</view>
         </picker>
       </view>
-    </view>
-    <view class="weui-cell__bd weui-cell__bd_in-select-before">
-      <input class="weui-input" placeholder="{{placeholder}}" />
+      <view class="weui-cell__bd weui-cell__bd_in-select-before">
+        <input class="weui-input" placeholder="{{placeholder}}" />
+      </view>
     </view>
   </view>
 </view>

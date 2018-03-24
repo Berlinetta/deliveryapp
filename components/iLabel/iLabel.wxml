@@ -1,0 +1,6 @@
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">{{title}}</view>
+    <view class="weui-cell__ft">{{text}}</view>
+  </view>
+</view>

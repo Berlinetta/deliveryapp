@@ -1,52 +1,27 @@
 <view class="page">
-
   <view class="page__bd">
     <view class="weui-cells__title">新建订单</view>
     <view class="weui-cells weui-cells_after-title">
 
       <iText title="编号" placeholder="请输入编号" />
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">到货日期</view>
-        </view>
-        <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2018-01-01" end="2019-09-01" bindchange="bindDateChange">
-            <view class="weui-input">{{date}}</view>
-          </picker>
-        </view>
-      </view>
-
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">计划提交日期</view>
-          <view class="weui-cell__ft">{{currentDate}}</view>
-        </view>
-      </view>
-
+      <iDatePicker title="到货日" date="{{date}}" startDate="2018-01-01" endDate="2019-09-01" />
+      <iTimePicker title="到货时间" date="{{time}}" />
+      <iLabel title="计划提交日期" text="{{currentDate}}" />
       <iText title="工地名称" placeholder="请输入工地名称" />
       <iText title="建筑单位名称" placeholder="请输入建筑单位名称" />
       <iDropdown title="货物种类" values="{{goodTypes}}" valueIndex="{{goodTypeIndex}}" />
       <iDropdown title="货物型号" values="{{goodModels}}" valueIndex="{{goodModelIndex}}" />
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">收货人电话</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入收货人电话" />
-        </view>
-      </view>
-
+      <iDropdown title="货物数量" values="{{goodCounts}}" valueIndex="{{goodCountIndex}}" />
+      <iText title="工地具体地址" placeholder="请输入工地具体地址" />
+      <iTelephone placeholder="请输入收货人电话" />
 
       <view style='padding-top:10px'>
-        <button class="weui-btn" type="primary" bindtap="showTopTips">提交订单</button>
+        <button class="weui-btn" type="primary" bindtap="submitForm">提交订单</button>
       </view>
 
       <view style='padding-top:3px'>
         <button class="weui-btn" type="warn">放弃提交</button>
       </view>
-
     </view>
   </view>
 </view>

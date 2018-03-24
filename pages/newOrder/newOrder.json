@@ -1,6 +1,10 @@
 {
   "usingComponents": {
     "iDropdown": "../../components/iDropdown/iDropdown",
-    "iText": "../../components/iText/iText"
+    "iText": "../../components/iText/iText",
+    "iTelephone": "../../components/iTelephone/iTelephone",
+    "iLabel": "../../components/iLabel/iLabel",
+    "iDatePicker": "../../components/iDatePicker/iDatePicker",
+    "iTimePicker": "../../components/iTimePicker/iTimePicker"
   }
 }
