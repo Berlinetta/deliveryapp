@@ -2,12 +2,12 @@
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd" style="width: 105px">
-        <picker bindchange="bindCountryCodeChange" value="{{countryCodeIndex}}" range="{{countryCodes}}">
-          <view class="weui-select">{{countryCodes[countryCodeIndex]}}</view>
+        <picker bindchange="handleCountryCodeUpdate" value="{{value.countryCodeIndex}}" range="{{countryCodes}}">
+          <view class="weui-select">{{countryCodes[value.countryCodeIndex]}}</view>
         </picker>
       </view>
       <view class="weui-cell__bd weui-cell__bd_in-select-before">
-        <input class="weui-input" placeholder="{{placeholder}}" />
+        <input value="{{value.number}}" class="weui-input" placeholder="{{placeholder}}" bindinput="handleTextUpdate" bindconfirm="handleTextConfirm" />
       </view>
     </view>
   </view>
@@ -18,7 +18,7 @@
       <view class="weui-label">{{countryCodes[0]}}</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="{{placeholder}}" />
+      <input value="{{value.number}}" class="weui-input" placeholder="{{placeholder}}" bindinput="handleTextUpdate" />
     </view>
   </view>
 </view>

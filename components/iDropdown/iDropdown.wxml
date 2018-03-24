@@ -1,8 +1,8 @@
 <view class="weui-cells__title">{{title}}</view>
 <view class="weui-cell weui-cell_select">
   <view class="weui-cell__bd">
-    <picker bindchange="bindDropdownChange" value="{{valueIndex}}" range="{{values}}">
-      <view class="weui-select">{{values[valueIndex]}}</view>
+    <picker mode="selector" bindchange="updateValue" value="{{value}}" range="{{values}}">
+      <view class="weui-select">{{values[value]}}</view>
     </picker>
   </view>
 </view>

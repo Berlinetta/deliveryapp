@@ -3,6 +3,6 @@
     <view class="weui-label">{{title}}</view>
   </view>
   <view class="weui-cell__bd">
-    <input name="{{name}}" value="{{value}}" class="weui-input" placeholder="{{placeholder}}" bindblur="updateValue" />
+    <input name="{{name}}" value="{{value}}" class="weui-input" placeholder="{{placeholder}}" bindinput="updateValue" />
   </view>
 </view>

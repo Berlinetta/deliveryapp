@@ -3,8 +3,8 @@
     <view class="weui-label">{{title}}</view>
   </view>
   <view class="weui-cell__bd">
-    <picker mode="time" value="{{time}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindTimeChange">
-      <view class="weui-input">{{time}}</view>
+    <picker mode="time" value="{{value}}" start="{{startTime}}" end="{{endTime}}" bindchange="updateValue">
+      <view class="weui-input">{{value}}</view>
     </picker>
   </view>
 </view>

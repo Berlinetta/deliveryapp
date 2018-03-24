@@ -1,10 +1,7 @@
 Component({
+  behaviors: ['wx://form-field'],
   properties: {
     title: {
-      type: String,
-      value: ""
-    },
-    time: {
       type: String,
       value: ""
     },
@@ -17,12 +14,13 @@ Component({
       value: ""
     }
   },
-
   data: {
-
   },
-
   methods: {
-
+    updateValue: function (e) {
+      this.setData({
+        value: e.detail.value
+      })
+    }
   }
 })
