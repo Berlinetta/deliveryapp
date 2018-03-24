@@ -1,1 +1,7 @@
-{}
+{
+  "usingComponents": {
+    "iDropdown": "../../components/iDropdown/iDropdown",
+    "iText": "../../components/iText/iText",
+    "iTelephone": "../../components/iTelephone/iTelephone"
+  }
+}

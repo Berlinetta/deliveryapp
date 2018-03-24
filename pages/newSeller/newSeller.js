@@ -14,7 +14,7 @@ Page({
     date: "2016-09-01",
     time: "12:01",
 
-    countryCodes: ["+86", "+80", "+84", "+87"],
+    countryCodes: ["+86"],
     countryCodeIndex: 0,
 
     countries: ["中国", "美国", "英国"],

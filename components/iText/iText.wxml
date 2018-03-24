@@ -1,0 +1,8 @@
+<view class="weui-cell weui-cell_input">
+  <view class="weui-cell__hd">
+    <view class="weui-label">{{title}}</view>
+  </view>
+  <view class="weui-cell__bd">
+    <input class="weui-input" placeholder="{{placeholder}}" />
+  </view>
+</view>

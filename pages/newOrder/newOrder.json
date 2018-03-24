@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "iDropdown": "../../components/iDropdown/iDropdown",
+    "iText": "../../components/iText/iText"
+  }
+}

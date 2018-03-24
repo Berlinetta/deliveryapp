@@ -1,11 +1,13 @@
-// pages/newOrder/newOrder.js
-Page({
+var moment =  require("../../packages/moment.min.js");
+//var utils = require("../../utils/util.js");
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
-  
+    currentDate: moment().format('YYYY-MM-DD hh:mm:ss'),
+    goodTypes: ["货物1", "货物2", "货物3"],
+    goodTypeIndex: 0,
+    goodModels: ["型号1", "型号2", "型号3"],
+    goodModelIndex: 0
   },
 
   /**
