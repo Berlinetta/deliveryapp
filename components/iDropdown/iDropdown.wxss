@@ -1,1 +1,2 @@
 @import "../../resources/styles/weui.wxss";
+@import "../common/styles/validationBehavior.wxss";

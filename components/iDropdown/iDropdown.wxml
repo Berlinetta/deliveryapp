@@ -1,4 +1,7 @@
-<view class="weui-cells__title">{{title}}</view>
+<view class="weui-cells__title">{{title}}
+  <text wx:if="{{required}}" class="required-field"> (必填)</text>
+  <text wx:else></text>
+</view>
 <view class="weui-cell weui-cell_select">
   <view class="weui-cell__bd">
     <picker mode="selector" bindchange="updateValue" value="{{value}}" range="{{values}}">

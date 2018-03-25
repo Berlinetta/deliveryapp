@@ -1,5 +1,7 @@
+import validationBehavior from "../common/behaviors/validationBehavior.js";
+
 Component({
-  behaviors: ['wx://form-field'],
+  behaviors: [validationBehavior, "wx://form-field"],
   properties: {
     title: {
       type: String,

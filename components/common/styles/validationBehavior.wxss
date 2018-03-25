@@ -1,0 +1,4 @@
+.required-field {
+  font-size: 10px;
+  color: gray;
+}
