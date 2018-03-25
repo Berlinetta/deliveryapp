@@ -1,4 +1,4 @@
-var moment = require("../../packages/moment.min.js");
+import moment from "../../packages/moment/moment.min.js";
 
 Page({
   data: {
@@ -16,34 +16,13 @@ Page({
       number: "1345555555"
     }
   },
-  onLoad: function (options) {
-
+  onLoad(options) {
+    
   },
-  onReady: function () {
-
-  },
-  onShow: function () {
-
-  },
-  onHide: function () {
-
-  },
-  onUnload: function () {
-
-  },
-  onPullDownRefresh: function () {
-
-  },
-  onReachBottom: function () {
-
-  },
-  onShareAppMessage: function () {
-
-  },
-  formSubmit: function (event) {
+  formSubmit(event) {
     console.log(event.detail.value.consigneeTelephone);
   },
-  cancelSubmit: function (event) {
+  cancelSubmit(event) {
     wx.navigateBack();
   }
-})
+});

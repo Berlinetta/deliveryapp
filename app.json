@@ -5,7 +5,9 @@
     "pages/newOrder/newOrder",
     "pages/manageSellers/manageSellers",
     "pages/newSeller/newSeller",
-    "pages/editOrder/editOrder"
+    "pages/editOrder/editOrder",
+    "pages/apiDemo/wxrequest/wxrequest",
+    "pages/apiDemo/wxresource/wxresource"
   ],
   "window": {
     "backgroundTextStyle": "light",

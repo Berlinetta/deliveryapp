@@ -15,7 +15,7 @@
         <iDropdown name="cargoCount" title="货物数量" values="{{cargoCounts}}" value="{{cargoCountIndex}}" />
         <iText name="constructionSiteAddress" title="工地具体地址" placeholder="请输入工地具体地址" />
         <iTelephone value="{{tel}}" name="consigneeTelephone" placeholder="请输入收货人电话" />
-        
+
         <view style='padding-top:10px'>
           <button class="weui-btn" type="primary" form-type="submit">提交订单</button>
         </view>
