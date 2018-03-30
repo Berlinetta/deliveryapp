@@ -3,7 +3,7 @@
     <view class="weui-cells__title">新建订单</view>
     <view class="weui-cells weui-cells_after-title">
 
-      <form bindsubmit="formSubmit" bindreset="formReset">
+      <form bindsubmit="formSubmit">
         <iText name="id" title="编号" placeholder="请输入编号" required="{{true}}" />
         <iDatePicker name="arrivalDate" title="到货日" value="{{date}}" startDate="2018-01-01" endDate="2019-09-01" required="{{true}}" />
         <iTimePicker name="arrivalTime" title="到货时间" value="{{time}}" required="{{true}}" />
@@ -19,7 +19,7 @@
         <view style='padding-top:10px'>
           <button class="weui-btn" type="primary" form-type="submit">提交订单</button>
         </view>
-        <view style='padding-top:3px'>
+        <view style='padding-top:3px;padding-bottom:10px'>
           <button bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
         </view>
       </form>
