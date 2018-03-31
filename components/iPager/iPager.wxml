@@ -1,0 +1,32 @@
+<view class="pager">
+  <block wx:if="{{isPrevButtonDisabled}}">
+    <button disabled class="weui-btn pager-button pager-button-left" type="default" plain="true" bindtap="goToPrev">
+      <image class="pager-button-image" src="../../resources/icons/back_disabled.png"></image>
+      <text>上一页</text>
+    </button>
+  </block>
+  <block wx:else>
+    <button class="weui-btn pager-button pager-button-left" type="default" plain="true" bindtap="goToPrev">
+      <image class="pager-button-image" src="../../resources/icons/back.png"></image>
+      <text>上一页</text>
+    </button>
+  </block>
+
+  <text class="active">{{currentPageIndex+1}}</text>
+  <text>/{{totalCount}}</text>
+
+  <block wx:if="{{isNextButtonDisabled}}">
+    <button disabled class="weui-btn pager-button pager-button-right" type="default" plain="true" bindtap="goToNext">
+      <text>下一页</text>
+      <image class="pager-button-image" src="../../resources/icons/more_disabled.png"></image>
+    </button>
+  </block>
+  <block wx:else>
+    <button class="weui-btn pager-button pager-button-right" type="default" plain="true" bindtap="goToNext">
+      <text>下一页</text>
+      <image class="pager-button-image" src="../../resources/icons/more.png"></image>
+    </button>
+  </block>
+
+  <view class="clear-float"></view>
+</view>

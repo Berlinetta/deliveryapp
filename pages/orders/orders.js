@@ -23,5 +23,8 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+  hanldePagerChange: function (e) {
+    console.log(e.detail.currentPageIndex);
   }
 });

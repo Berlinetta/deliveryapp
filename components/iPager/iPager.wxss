@@ -1,0 +1,39 @@
+.pager {
+  line-height: 40px;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pager-button {
+  width: 85px;
+  font-size: 15px;
+  display: inline-block;
+  margin-top: 0;
+}
+
+.pager-button-image {
+  width: 22px;
+  height: 22px;
+  vertical-align: -6px;
+}
+
+.pager-button-left {
+  padding-left: 0px;
+  padding-right: 5px;
+  float: left;
+}
+
+.pager-button-right {
+  padding-left: 5px;
+  padding-right: 0px;
+  float: right;
+}
+
+.active {
+  color: #1aad19;
+}
+
+.clear-float {
+  clear: both;
+}

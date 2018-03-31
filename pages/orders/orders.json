@@ -1,1 +1,6 @@
-{}
+{
+  "onReachBottomDistance": "50",
+  "usingComponents": {
+    "iPager": "../../components/iPager/iPager"
+  }
+}
