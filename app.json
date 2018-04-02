@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/manageOrders/manageOrders",
     "pages/orders/orders",
     "pages/index/index",
     "pages/newOrder/newOrder",
@@ -21,7 +22,7 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/orders/orders",
+        "pagePath": "pages/manageOrders/manageOrders",
         "text": "订单",
         "iconPath": "resources/icons/orders_disabled.png",
         "selectedIconPath": "resources/icons/orders.png"
