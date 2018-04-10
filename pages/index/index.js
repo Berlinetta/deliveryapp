@@ -4,6 +4,7 @@ const app = getApp();
 
 Page({
   data: {
+    grids: [0, 1, 2, 3, 4, 5, 6, 7, 8],
     manageActions: [
       { url: '../../resources/icons/manage/sales.png', text: "销售人员" },
       { url: '../../resources/icons/manage/dispacthers.png', text: "调度人员" },
@@ -14,7 +15,7 @@ Page({
     ],
     urls: [],
     userInfo: {},
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: false//wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
     this.setData({ urls: this.data.manageActions.map(a => a.url) });
