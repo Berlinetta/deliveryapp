@@ -1,0 +1,5 @@
+@import "../../resources/styles/weui.wxss";
+
+.navigator-border {
+  border-bottom: 1px solid lightgrey;
+}

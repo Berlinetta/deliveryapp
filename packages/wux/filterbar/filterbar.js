@@ -8,7 +8,7 @@ export default {
    * @param {Function} opts.onChange 选中值变化的回调函数
    */
   init(opts = {}) {
-    const options = Object.assign({}, opts)
+    const options = Object.assign({}, opts);
 
     // 实例化组件
     const component = new Component({
@@ -235,10 +235,10 @@ export default {
           }
         },
       },
-    })
+    });
 
-    component.show()
+    component.show();
 
-    return component
-  },
+    return component;
+  }
 }

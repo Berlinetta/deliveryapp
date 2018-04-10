@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/manageOrders/manageOrders",
+    "pages/demo/demo",
     "pages/orders/orders",
     "pages/index/index",
     "pages/newOrder/newOrder",
@@ -9,6 +10,7 @@
     "pages/editOrder/editOrder",
     "pages/apiDemo/wxrequest/wxrequest",
     "pages/apiDemo/wxresource/wxresource"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

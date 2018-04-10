@@ -1,7 +1,7 @@
 <import src="../../packages/wux/filterbar/filterbar.wxml" />
 <import src="../../packages/wux/refresher/refresher.wxml" />
-
-<view style="position: absolute;width:100%; height: 100%; {{ $wux.refresher.style }}" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+dd
+<view class="table-container"  bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
   <template is="refresher" data="{{ ...$wux.refresher }}" />
   <view>
 

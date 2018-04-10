@@ -1,11 +1,11 @@
-import { $wuxFilterBar } from '../../packages/wux/wux.js'
+import { $wuxFilterBar, $wuxRefresher } from '../../packages/wux/wux.js'
 
 Page({
   data: {
     items: [
       {
         type: 'radio',
-        label: '配送状态',
+        label: '状态',
         value: 'orderStatus',
         children: [{
           label: '未调度',
@@ -45,11 +45,77 @@ Page({
       },
       {
         type: 'sort',
-        label: '时间排序',
+        label: '创建时间',
         value: 'time',
         sort: -1,
         groups: ["3"]
+      },
+      {
+        type: 'filter',
+        label: '筛选',
+        value: 'filter',
+        children: [{
+          type: 'radio',
+          label: '状态',
+          value: 'status',
+          children: [{
+            label: '未调度',
+            value: 'new'
+          },
+          {
+            label: '调度中',
+            value: 'dispatching'
+          },
+          {
+            label: '已完成',
+            value: 'completed'
+          },
+          {
+            label: '未完成',
+            value: 'unfinished'
+          }
+          ],
+        },
+        {
+          type: 'radio',
+          label: '范围',
+          value: 'range',
+          children: [{
+            label: '我的订单',
+            value: 'myOrders'
+          },
+          {
+            label: '全部订单',
+            value: 'allOrders'
+          }
+          ]
+        },
+        {
+          type: 'radio',
+          label: '创建时间',
+          value: 'range',
+          children: [{
+            label: '升序',
+            value: 'asc'
+          },
+          {
+            label: '降序',
+            value: 'desc'
+          }
+          ]
+        }
+        ],
+        groups: ['001', '002', '003']
       }
+    ],
+    tableData: [
+      { title: "订单1", subtitle: "subtitle" },
+      { title: "订单2", subtitle: "subtitle" },
+      { title: "订单3", subtitle: "subtitle" },
+      { title: "订单4", subtitle: "subtitle" },
+      { title: "订单5", subtitle: "subtitle" },
+      { title: "订单6", subtitle: "subtitle" },
+      { title: "订单7", subtitle: "subtitle" }
     ]
   },
   onLoad() {
@@ -85,7 +151,38 @@ Page({
 
         this.$wuxFilterBar.onCloseSelect();
         //this.getRepos(params);
-      },
+      }
     });
+    this.refresher = new $wuxRefresher({
+      onPulling() {
+        console.log('onPulling');
+      },
+      onRefresh() {
+        console.log('onRefresh');
+        setTimeout(() => {
+          const tableData = this.scope.data.tableData;
+
+          tableData.unshift({
+            title: "ddd",
+            subtitle: '由各种物质组成。'
+          });
+
+          this.scope.setData({
+            tableData: tableData
+          });
+
+          this.events.emit(`scroll.refreshComplete`);
+        }, 2000);
+      }
+    });
+  },
+  touchstart(e) {
+    this.refresher.touchstart(e);
+  },
+  touchmove(e) {
+    this.refresher.touchmove(e);
+  },
+  touchend(e) {
+    this.refresher.touchend(e);
   }
-})
+});

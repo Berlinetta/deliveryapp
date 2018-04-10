@@ -12,7 +12,7 @@
     </view>
 
     <view style="margin-top:15px;">
-      <iPager currentPageIndex="0" totalCount="5" bindonchange="hanldePagerChange"></iPager>
+      <iPager currentPageIndex="0" totalCount="5" bindonchange="handlePagerChange"></iPager>
     </view>
   </view>
 </view>
