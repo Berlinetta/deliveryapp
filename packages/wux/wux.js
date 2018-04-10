@@ -1,5 +1,6 @@
 import $wuxRefresher from 'refresher/refresher';
 import $wuxFilterBar from 'filterbar/filterbar';
+import $wuxGallery from 'gallery/gallery';
 /* import $wuxActionSheet from 'actionsheet/actionsheet'
 import $wuxBackdrop from 'backdrop/backdrop'
 import $wuxBarcode from 'barcode/barcode'
@@ -8,7 +9,6 @@ import $wuxCalendar from 'calendar/calendar'
 import $wuxCountDown from 'countdown/countdown'
 import $wuxCountUp from 'countup/countup'
 import $wuxDialog from 'dialog/dialog'
-import $wuxGallery from 'gallery/gallery'
 import $wuxKeyBoard from 'keyboard/keyboard'
 import $wuxLoading from 'loading/loading'
 import $wuxNotification from 'notification/notification'
@@ -23,27 +23,28 @@ import $wuxVcode from 'vcode/vcode'
 import $wuxXnumber from 'xnumber/xnumber' */
 
 export {
-  $wuxRefresher,
-  $wuxFilterBar
-/*   $wuxActionSheet,
-  $wuxBackdrop,
-  $wuxBarcode,
-  $wuxButton,
-  $wuxCalendar,
-  $wuxCountDown,
-  $wuxCountUp,
-  $wuxDialog,
-  $wuxGallery,
-  $wuxKeyBoard,
-  $wuxLoading,
-  $wuxNotification,
-  $wuxPicker,
-  $wuxPickerCity,
-  $wuxPrompt,
-  $wuxQrcode,
-  $wuxRater,
-  $wuxToast,
-  $wuxToptips,
-  $wuxVcode,
-  $wuxXnumber */
+    $wuxRefresher,
+    $wuxFilterBar,
+    $wuxGallery
+    /*   $wuxActionSheet,
+      $wuxBackdrop,
+      $wuxBarcode,
+      $wuxButton,
+      $wuxCalendar,
+      $wuxCountDown,
+      $wuxCountUp,
+      $wuxDialog,
+
+      $wuxKeyBoard,
+      $wuxLoading,
+      $wuxNotification,
+      $wuxPicker,
+      $wuxPickerCity,
+      $wuxPrompt,
+      $wuxQrcode,
+      $wuxRater,
+      $wuxToast,
+      $wuxToptips,
+      $wuxVcode,
+      $wuxXnumber */
 }

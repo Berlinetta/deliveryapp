@@ -1,43 +1,36 @@
+<import src="../../packages/wux/gallery/gallery.wxml" />
+
+<template is="gallery" data="{{ ...$wux.gallery }}" />
+
 <view class="page">
   <view class="page__bd">
     <view class="weui-cells__title"></view>
     <view class="weui-cells weui-cells_after-title">
 
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">个人信息</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
+      <iNavigator url="../manageSellers/manageSellers" title="个人信息" subtitle="说明文字" />
 
-      <navigator url="../newOrder/newOrder" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">新建订单</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
+      <view class="weui-cells__title">系统管理</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files">
+                  <block wx:for-items="{{ manageActions }}" wx:key="{{ index }}">
+                    <view class="weui-uploader__file" bindtap="showGallery" data-current="{{ index }}">
+                      <navigator url="../manageSellers/manageSellers">
+                        <image bindtap="handleImageClick" class="img weui-uploader__img" src="{{ item.url }}" />
+                      </navigator>
 
-      <view class="weui-cells__title">管理</view>
-      <navigator url="../manageSellers/manageSellers" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">销售人员管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">调度人员管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">物流人员管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">产品管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">车辆管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">运费管理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-      </navigator>
+                      <view style='text-align:center;'>{{item.text}}</view>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
 
 
     </view>
