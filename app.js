@@ -1,17 +1,25 @@
-//app.js
+import ApiSdk from "./sdk/ApiSdk";
+
 App({
   onLaunch: function () {
+    ApiSdk.ProductsService.getProducts().then(res => {
+      console.log(res);
+    });
+    ApiSdk.OrdersService.getPagedOrders(2, 0, 10).then(res => {
+      console.log(res);
+    });
+
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    var logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    wx.setStorageSync('logs', logs);
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
-    })
+    });
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -31,7 +39,7 @@ App({
           })
         }
       }
-    })
+    });
   },
   globalData: {
     userInfo: null
