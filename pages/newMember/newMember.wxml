@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title">添加用户</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <form bindsubmit="formSubmit">
+        <iText name="name" title="姓名" placeholder="请输入姓名" required="{{true}}" />
+        <iTelephone name="telephone" value="{{tel}}" title="手机号" placeholder="请输入手机号" required="{{true}}" />
+        <iDropdown name="userType" title="角色" values="{{userTypes}}" value="{{userTypeIndex}}" required="{{true}}" />
+        <view style='padding-top:10px'>
+          <button style="width:95%" class="weui-btn" type="primary" form-type="submit">提交用户信息</button>
+        </view>
+        <view style='padding-top:3px;padding-bottom:10px'>
+          <button style="width:95%" bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
+        </view>
+      </form>
+
+    </view>
+  </view>
+</view>

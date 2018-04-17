@@ -16,6 +16,8 @@
         <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="王某某" />
         <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="管理员" />
         <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="13555666666" />
+        <iNavigator url="../newOrder/newOrder" title="新建订单" />
+        <iNavigator url="../newMember/newMember" title="添加用户" />
       </view>
 
       <view class='manage'>
@@ -23,8 +25,8 @@
         <view class="page__bd">
           <view class="weui-grids">
             <block wx:for="{{manageActions}}" wx:key="{{index}}">
-              <navigator url="../manageSellers/manageSellers" class="weui-grid" hover-class="weui-grid_active">
-                  <image class="weui-grid__icon img" src="{{ item.url }}" />
+              <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
+                  <image class="weui-grid__icon img" src="{{ item.imageUrl }}" />
                   <view class="weui-grid__label">{{item.text}}</view>
                 </navigator>
             </block>

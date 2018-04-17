@@ -20,7 +20,7 @@ Component({
     }
   },
   data: {
-    countryCodes: ["+86", "+88"]
+    countryCodes: ["+86"]
   },
   methods: {
     handleCountryCodeUpdate: function (e) {

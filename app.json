@@ -9,8 +9,9 @@
     "pages/newSeller/newSeller",
     "pages/editOrder/editOrder",
     "pages/apiDemo/wxrequest/wxrequest",
-    "pages/apiDemo/wxresource/wxresource"
-
+    "pages/apiDemo/wxresource/wxresource",
+    "pages/manageProducts/manageProducts",
+    "pages/newMember/newMember"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -2,6 +2,9 @@ import ApiSdk from "./sdk/ApiSdk";
 
 App({
   onLaunch: function () {
+    ApiSdk.MembersService.getMember("123").then(res => {
+      console.log(res);
+    });
     ApiSdk.ProductsService.getProducts().then(res => {
       console.log(res);
     });
