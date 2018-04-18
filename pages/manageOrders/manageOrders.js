@@ -1,4 +1,5 @@
 import { $wuxFilterBar, $wuxRefresher } from '../../packages/wux/wux.js'
+import ApiSdk from "../../sdk/ApiSdk";
 
 Page({
   data: {
@@ -109,13 +110,6 @@ Page({
       }
     ],
     tableData: [
-      { title: "订单1", subtitle: "subtitle" },
-      { title: "订单2", subtitle: "subtitle" },
-      { title: "订单3", subtitle: "subtitle" },
-      { title: "订单4", subtitle: "subtitle" },
-      { title: "订单5", subtitle: "subtitle" },
-      { title: "订单6", subtitle: "subtitle" },
-      { title: "订单7", subtitle: "subtitle" }
     ]
   },
   onLoad() {
@@ -168,11 +162,23 @@ Page({
           });
 
           this.scope.setData({
-            tableData: tableData
+            tableData
           });
 
           this.events.emit(`scroll.refreshComplete`);
         }, 2000);
+      }
+    });
+    ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(res => {
+      if (res.data && res.data.success == "1") {
+        const orders = res.data.orderList.map((o) => {
+          return {
+            ordNumber: o.ordNumber,
+            title: o.ordAddress,
+            subtitle: o.ordStatus
+          };
+        });
+        this.setData({ tableData: orders });
       }
     });
   },

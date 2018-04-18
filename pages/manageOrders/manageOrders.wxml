@@ -8,11 +8,14 @@
     <template is="filterbar" data="{{ ...$wux.filterbar }}" />
 
     <view wx:for="{{tableData}}">
-      <iNavigator url="../editOrder/editOrder" title="{{item.title}}" subtitle="{{item.subtitle}}" />
+      <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="{{item.title}}" subtitle="{{item.subtitle}}" />
     </view>
 
-    <view style="margin-top:15px;">
-      <iPager currentPageIndex="0" totalCount="5" bindonchange="hanldePagerChange"></iPager>
-    </view>
+    <block wx:if="{{true}}">
+      <view style="margin-top:15px;">
+        <iPager currentPageIndex="0" totalCount="5" bindonchange="hanldePagerChange"></iPager>
+      </view>
+    </block>
+    <block wx:else></block>
   </view>
 </view>

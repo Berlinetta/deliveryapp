@@ -54,10 +54,10 @@
 
 
       <view style='padding-top:10px'>
-        <button class="weui-btn" type="primary" bindtap="showTopTips">保存订单</button>
+        <button style="width:95%;" class="weui-btn" type="primary" bindtap="showTopTips">保存订单</button>
       </view>
       <view style='padding-top:3px'>
-        <button class="weui-btn" type="warn">放弃修改</button>
+        <button style="width:95%;" class="weui-btn" type="warn">放弃修改</button>
       </view>
     </view>
   </view>

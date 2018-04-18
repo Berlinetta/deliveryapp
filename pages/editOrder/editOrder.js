@@ -28,6 +28,9 @@ Page({
 
     isAgree: false
   },
+  onLoad: function (option) {
+    console.log(option.ordNumber);
+  },
   showTopTips: function () {
     var that = this;
     this.setData({
