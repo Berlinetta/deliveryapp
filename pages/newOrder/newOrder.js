@@ -28,13 +28,16 @@ Page({
     this.setData({ cargoTypes: products.map((p) => p.proName) });
     this.selectProduct(this.data.cargoTypeIndex);
   },
-  showModal(obj) {
+  showModal(obj, confirmCallback, cancelCallback) {
     wx.showModal({
       content: obj.msg,
       showCancel: false,
       success: function (res) {
-        if (res.confirm) {
-          wx.navigateBack();
+        if (res.confirm && confirmCallback) {
+          confirmCallback();
+        }
+        if (res.cancel && cancelCallback) {
+          cancelCallback();
         }
       }
     })
@@ -52,6 +55,7 @@ Page({
     const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
     const totalPrice = parseFloat(cargoPrice) * parseFloat(cargoCount);
     const orderInfo = {
+      wechatId: app.globalData.wechatId,
       ordAddress: constructionSiteAddress,
       ordMoney: totalPrice,
       payType: parseInt(payType) + 1,
@@ -63,9 +67,7 @@ Page({
       proModel: selectedProduct.proModel
     };
     ApiSdk.OrdersService.createOrder(orderInfo).then(() => {
-      this.showModal({
-        msg: "提交成功"
-      });
+      this.showModal({ msg: "提交成功" }, () => { wx.navigateBack(); });
     }).catch((res) => {
       this.showModal({
         msg: "提交失败！错误详情：" + res.toString()
