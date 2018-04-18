@@ -1,4 +1,5 @@
-import { $wuxGallery } from '../../packages/wux/wux.js';
+import AS from '../../services/AuthorizationService.js';
+import Models from '../../services/models/Models.js';
 
 const app = getApp();
 
@@ -14,68 +15,15 @@ Page({
       { imageUrl: '../../resources/icons/manage/money.png', text: "运费", url: "../manageFees/manageFees" }
     ],
     urls: [],
-    userInfo: {},
-    canIUse: false//wx.canIUse('button.open-type.getUserInfo')
+    wxUserInfo: {},
+    myUserInfo: {},
+    isAdmin: false,
   },
   onLoad: function () {
+    const { wxUserInfo, myUserInfo } = app.globalData;
+    this.setData({ isAdmin: new AS().isAdmin() });
+    const userTypeName = Models.UserTypeName[myUserInfo.type];
+    this.setData({ wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, { userTypeName }) });
     this.setData({ urls: this.data.manageActions.map(a => a.url) });
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo
-      });
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo
-        })
-      };
-    } else {
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo;
-          this.setData({
-            userInfo: res.userInfo
-          })
-        }
-      });
-    }
-  },
-  getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo;
-    this.setData({
-      userInfo: e.detail.userInfo
-    });
-  },
-  showGallery(e) {
-    const dataset = e.currentTarget.dataset
-    const current = dataset.current
-    const urls = this.data.urls
-
-    // $wuxGallery.show({
-    //   current: current,
-    //   urls: urls,
-    //   [`delete`](current, urls) {
-    //     urls.splice(current, 1)
-    //     this.setData({
-    //       urls: urls,
-    //     })
-    //     return !0
-    //   },
-    //   cancel: () => console.log('Close gallery')
-    // })
-  },
-  previewImage(e) {
-    const dataset = e.currentTarget.dataset
-    const current = dataset.current
-    const urls = this.data.urls
-
-    // wx.previewImage({
-    //   current: current,
-    //   urls: urls,
-    // })
-  },
-  handleImageClick(e) {
-
-    //e.stopPropagation();
   }
 });

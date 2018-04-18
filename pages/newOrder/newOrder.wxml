@@ -17,10 +17,10 @@
         <iTelephone value="{{tel}}" name="consigneeTelephone" title="收货人电话" placeholder="请输入收货人电话" required="{{true}}" />
 
         <view style='padding-top:10px'>
-          <button class="weui-btn" type="primary" form-type="submit">提交订单</button>
+          <button style="width:95%" class="weui-btn" type="primary" form-type="submit">提交订单</button>
         </view>
         <view style='padding-top:3px;padding-bottom:10px'>
-          <button bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
+          <button style="width:95%" bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
         </view>
       </form>
 

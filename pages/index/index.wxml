@@ -8,31 +8,34 @@
     <view class="weui-cells weui-cells_after-title">
 
       <view class="userinfo">
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <image class="userinfo-avatar" src="{{wxUserInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{wxUserInfo.nickName}}</text>
       </view>
 
       <view class='personal-info'>
-        <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="王某某" />
-        <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="管理员" />
-        <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="13555666666" />
+        <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="{{myUserInfo.name}}" />
+        <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="{{myUserInfo.userTypeName}}" />
+        <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="{{myUserInfo.phone}}" />
         <iNavigator url="../newOrder/newOrder" title="新建订单" />
         <iNavigator url="../newMember/newMember" title="添加用户" />
       </view>
 
-      <view class='manage'>
-        <view class="weui-cells__title">系统管理</view>
-        <view class="page__bd">
-          <view class="weui-grids">
-            <block wx:for="{{manageActions}}" wx:key="{{index}}">
-              <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
+      <block wx:if="{{isAdmin}}">
+        <view class='manage'>
+          <view class="weui-cells__title">系统管理</view>
+          <view class="page__bd">
+            <view class="weui-grids">
+              <block wx:for="{{manageActions}}" wx:key="{{index}}">
+                <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
                   <image class="weui-grid__icon img" src="{{ item.imageUrl }}" />
                   <view class="weui-grid__label">{{item.text}}</view>
                 </navigator>
-            </block>
+              </block>
+            </view>
           </view>
         </view>
-      </view>
+      </block>
+      <block wx:else></block>
 
     </view>
   </view>

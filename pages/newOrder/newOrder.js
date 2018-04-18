@@ -14,7 +14,7 @@ Page({
     time: "09:30",
     tel: {
       countryCodeIndex: 0,
-      number: "1345555555"
+      number: ""
     }
   },
   onLoad(options) {
