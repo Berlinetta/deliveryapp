@@ -11,8 +11,8 @@ class OrdersService extends BaseService {
     return this.getRequest('/orderApi/orderList.shtml', data);
   }
 
-  createOrder() {
-
+  createOrder(orderInfo) {
+    return this.postRequest('/orderApi/saleSaveOrder.shtml', orderInfo);
   }
 }
 

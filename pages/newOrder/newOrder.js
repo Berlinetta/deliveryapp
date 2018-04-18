@@ -1,5 +1,6 @@
 import moment from "../../packages/moment/moment.min.js";
 import WxValidate from "../../packages/wx-validate/WxValidate.js";
+import ApiSdk from "../../sdk/ApiSdk.js";
 
 const app = getApp();
 
@@ -12,6 +13,8 @@ Page({
     cargoModelIndex: 0,
     cargoUnit: "",
     cargoPrice: 0,
+    payTypes: ["线下支付", "线上支付"],
+    payTypeIndex: 0,
     date: moment().add(1, 'days').format('YYYY-MM-DD'),
     time: moment().format("hh:mm"),
     tel: {
@@ -37,6 +40,21 @@ Page({
       this.showModal(error);
       return false;
     }
+    //all fields in UI: arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, 
+    //constructionSiteAddress, constructionSiteName, constructorCompanyName, id, payType, submissionDateTime
+    // const { arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, constructionSiteAddress, constructionSiteName, constructorCompanyName, id, payType, submissionDateTime } = e.detail.value;
+    // const orderInfo = {
+    //   ordAddress: constructionSiteAddress,
+    //   ordMoney: parseFloat(cargoPrice) * parseFloat(cargoCount),
+    //   payType,
+    //   productId: ,
+    //   productName,
+    //   proNum,
+    //   proPrice,
+    //   proSumPrice,
+    //   proModel
+    // };
+    //ApiSdk.OrdersService.createOrder(orderInfo);
     this.showModal({
       msg: "提交成功"
     });
