@@ -10,9 +10,11 @@
         <iLabel name="submissionDateTime" title="计划提交日期" value="{{currentDate}}" />
         <iText name="constructionSiteName" title="工地名称" placeholder="请输入工地名称" required="{{true}}" />
         <iText name="constructorCompanyName" title="建筑单位名称" placeholder="请输入建筑单位名称" />
-        <iDropdown name="cargoType" title="货物种类" values="{{cargoTypes}}" value="{{cargoTypeIndex}}" required="{{true}}" />
+        <iDropdown name="cargoType" title="货物种类" bindonchange="handleCargoTypeChange" values="{{cargoTypes}}" value="{{cargoTypeIndex}}" required="{{true}}" />
         <iDropdown name="cargoModel" title="货物型号" values="{{cargoModels}}" value="{{cargoModelIndex}}" required="{{true}}" />
-        <iDropdown name="cargoCount" title="货物数量" values="{{cargoCounts}}" value="{{cargoCountIndex}}" required="{{true}}" />
+        <iText name="cargoCount" title="货物数量" placeholder="请输入货物数量" required="{{true}}" />
+        <iLabel name="cargoUnit" title="货物数量单位" value="{{cargoUnit}}" />
+        <iLabel name="cargoPrice" title="单价" value="{{cargoPrice}}" />
         <iText name="constructionSiteAddress" title="工地具体地址" placeholder="请输入工地具体地址" />
         <iTelephone value="{{tel}}" name="consigneeTelephone" title="收货人电话" placeholder="请输入收货人电话" required="{{true}}" />
 

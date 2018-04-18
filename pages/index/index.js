@@ -1,4 +1,4 @@
-import AS from '../../services/AuthorizationService.js';
+import AuthorizationService from '../../services/AuthorizationService.js';
 import Models from '../../services/models/Models.js';
 
 const app = getApp();
@@ -17,11 +17,14 @@ Page({
     urls: [],
     wxUserInfo: {},
     myUserInfo: {},
-    isAdmin: false,
+    isAdmin: true,
+    isSeller: true
   },
   onLoad: function () {
+    const AS = new AuthorizationService();
     const { wxUserInfo, myUserInfo } = app.globalData;
-    this.setData({ isAdmin: new AS().isAdmin() });
+    //this.setData({ isAdmin: AS.isAdmin() });
+    //this.setData({ isSeller: AS.isSeller() || AS.isAdmin() });
     const userTypeName = Models.UserTypeName[myUserInfo.type];
     this.setData({ wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, { userTypeName }) });
     this.setData({ urls: this.data.manageActions.map(a => a.url) });

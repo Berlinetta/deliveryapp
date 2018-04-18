@@ -8,7 +8,7 @@ Component({
       value: "",
     },
     values: {
-      type: Array, 
+      type: Array,
       value: [],
     }
   },
@@ -18,7 +18,8 @@ Component({
     updateValue: function (e) {
       this.setData({
         value: e.detail.value
-      })
+      });
+      this.triggerEvent('onchange', e.detail.value);
     }
   }
 })

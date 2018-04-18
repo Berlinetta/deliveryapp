@@ -16,9 +16,23 @@
         <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="{{myUserInfo.name}}" />
         <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="{{myUserInfo.userTypeName}}" />
         <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="{{myUserInfo.phone}}" />
-        <iNavigator url="../newOrder/newOrder" title="新建订单" />
         <iNavigator url="../newMember/newMember" title="添加用户" />
       </view>
+
+      <block wx:if="{{isSeller}}">
+        <view class='manage'>
+          <view class="weui-cells__title">操作</view>
+          <view class="page__bd">
+            <view class="weui-grids">
+              <navigator url="../newOrder/newOrder" class="weui-grid" hover-class="weui-grid_active">
+                  <image class="weui-grid__icon img" src="../../resources/icons/actions/add.png" />
+                  <view class="weui-grid__label">新建订单</view>
+                </navigator>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:else></block>
 
       <block wx:if="{{isAdmin}}">
         <view class='manage'>

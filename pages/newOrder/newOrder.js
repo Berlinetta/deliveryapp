@@ -1,17 +1,19 @@
 import moment from "../../packages/moment/moment.min.js";
 import WxValidate from "../../packages/wx-validate/WxValidate.js";
 
+const app = getApp();
+
 Page({
   data: {
     currentDate: moment().format('YYYY-MM-DD hh:mm:ss'),
-    cargoTypes: ["货物1", "货物2", "货物3"],
-    cargoTypeIndex: 2,
-    cargoModels: ["型号1", "型号2", "型号3"],
-    cargoModelIndex: 1,
-    cargoCounts: ["10", "20", "30"],
-    cargoCountIndex: 0,
-    date: "2018-3-13",
-    time: "09:30",
+    cargoTypes: [],
+    cargoTypeIndex: 0,
+    cargoModels: [],
+    cargoModelIndex: 0,
+    cargoUnit: "",
+    cargoPrice: 0,
+    date: moment().add(1, 'days').format('YYYY-MM-DD'),
+    time: moment().format("hh:mm"),
     tel: {
       countryCodeIndex: 0,
       number: ""
@@ -19,6 +21,9 @@ Page({
   },
   onLoad(options) {
     this.initValidate();
+    const { products } = app.globalData;
+    this.setData({ cargoTypes: products.map((p) => p.proName) });
+    this.selectProduct(this.data.cargoTypeIndex);
   },
   showModal(error) {
     wx.showModal({
@@ -101,5 +106,13 @@ Page({
     this.wxValidate.addMethod("telephone", (value, param) => {
       return value && this.wxValidate.methods.tel(value.number);
     }, "请输入正确的号码");
+  },
+  selectProduct(productIndex) {
+    const { products } = app.globalData;
+    const selectedProduct = products[productIndex];
+    this.setData({ cargoModels: [selectedProduct.proModel], cargoUnit: selectedProduct.proUnit, cargoPrice: selectedProduct.proPrice });
+  },
+  handleCargoTypeChange(e) {
+    this.selectProduct(e.detail);
   }
 });
