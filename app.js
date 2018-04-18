@@ -2,6 +2,11 @@ import ApiSdk from "./sdk/ApiSdk";
 
 App({
   onLaunch: function () {
+    ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(res => {
+      if (res.data && res.data.success == "1") {
+        console.log("");
+      }
+    });
     ApiSdk.ProductsService.getProducts().then(res => {
       if (res.data && res.data.success == "1") {
         this.globalData.products = res.data.productList;

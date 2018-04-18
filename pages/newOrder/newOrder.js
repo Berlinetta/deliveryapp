@@ -13,7 +13,7 @@ Page({
     cargoModelIndex: 0,
     cargoUnit: "",
     cargoPrice: 0,
-    payTypes: ["线下支付", "线上支付"],
+    payTypes: ["线上支付", "线下支付"],
     payTypeIndex: 0,
     date: moment().add(1, 'days').format('YYYY-MM-DD'),
     time: moment().format("hh:mm"),
@@ -28,10 +28,15 @@ Page({
     this.setData({ cargoTypes: products.map((p) => p.proName) });
     this.selectProduct(this.data.cargoTypeIndex);
   },
-  showModal(error) {
+  showModal(obj) {
     wx.showModal({
-      content: error.msg,
-      showCancel: false
+      content: obj.msg,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateBack();
+        }
+      }
     })
   },
   formSubmit(e) {
@@ -41,22 +46,30 @@ Page({
       return false;
     }
     //all fields in UI: arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, 
-    //constructionSiteAddress, constructionSiteName, constructorCompanyName, id, payType, submissionDateTime
-    // const { arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, constructionSiteAddress, constructionSiteName, constructorCompanyName, id, payType, submissionDateTime } = e.detail.value;
-    // const orderInfo = {
-    //   ordAddress: constructionSiteAddress,
-    //   ordMoney: parseFloat(cargoPrice) * parseFloat(cargoCount),
-    //   payType,
-    //   productId: ,
-    //   productName,
-    //   proNum,
-    //   proPrice,
-    //   proSumPrice,
-    //   proModel
-    // };
-    //ApiSdk.OrdersService.createOrder(orderInfo);
-    this.showModal({
-      msg: "提交成功"
+    //constructionSiteAddress, constructionSiteName, constructorCompanyName, payType, submissionDateTime
+
+    const { arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, constructionSiteAddress, constructionSiteName, constructorCompanyName, payType, submissionDateTime } = e.detail.value;
+    const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
+    const totalPrice = parseFloat(cargoPrice) * parseFloat(cargoCount);
+    const orderInfo = {
+      ordAddress: constructionSiteAddress,
+      ordMoney: totalPrice,
+      payType: parseInt(payType) + 1,
+      productId: selectedProduct.id,
+      productName: selectedProduct.proName,
+      proNum: cargoCount,
+      proPrice: selectedProduct.proPrice,
+      proSumPrice: totalPrice,
+      proModel: selectedProduct.proModel
+    };
+    ApiSdk.OrdersService.createOrder(orderInfo).then(() => {
+      this.showModal({
+        msg: "提交成功"
+      });
+    }).catch((res) => {
+      this.showModal({
+        msg: "提交失败！错误详情：" + res.toString()
+      });
     });
   },
   cancelSubmit(event) {
@@ -64,9 +77,6 @@ Page({
   },
   initValidate() {
     const rules = {
-      id: {
-        required: true,
-      },
       arrivalDate: {
         required: true
       },
@@ -91,9 +101,6 @@ Page({
       }
     };
     const messages = {
-      id: {
-        required: "请输入编号"
-      },
       arrivalDate: {
         required: "请输入到货日"
       },
@@ -128,7 +135,7 @@ Page({
   selectProduct(productIndex) {
     const { products } = app.globalData;
     const selectedProduct = products[productIndex];
-    this.setData({ cargoModels: [selectedProduct.proModel], cargoUnit: selectedProduct.proUnit, cargoPrice: selectedProduct.proPrice });
+    this.setData({ cargoTypeIndex: productIndex, cargoModels: [selectedProduct.proModel], cargoUnit: selectedProduct.proUnit, cargoPrice: selectedProduct.proPrice });
   },
   handleCargoTypeChange(e) {
     this.selectProduct(e.detail);
