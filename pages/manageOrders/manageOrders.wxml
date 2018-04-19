@@ -1,15 +1,24 @@
 <import src="../../packages/wux/filterbar/filterbar.wxml" />
 <import src="../../packages/wux/refresher/refresher.wxml" />
+<import src="../../components/tSearchBar/tSearchBar.wxml" />
 
 <view style="position: absolute;width:100%; height: 100%; {{ $wux.refresher.style }}" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
   <template is="refresher" data="{{ ...$wux.refresher }}" />
   <view>
-
+    <template is="searchbar" />
     <template is="filterbar" data="{{ ...$wux.filterbar }}" />
 
-    <view wx:for="{{tableData}}">
+    <!-- <view wx:for="{{tableData}}">
       <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="{{item.title}}" subtitle="{{item.subtitle}}" />
-    </view>
+    </view> -->
+
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物一" subtitle="¥2400.00" />
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物2" subtitle="¥687.00" />
+    <iPreview items="{{previewItems}}" showSecondaryAction="{{false}}" primaryActionText="编辑订单" />
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物3" subtitle="¥300.00" />
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物4" subtitle="¥1400.00" />
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物5" subtitle="¥500.00" />
+   
 
     <block wx:if="{{true}}">
       <view style="margin-top:15px;">

@@ -3,6 +3,13 @@ import ApiSdk from "../../sdk/ApiSdk";
 
 Page({
   data: {
+    previewItems: [
+      { label: "型号", value: "型号1" },
+      { label: "数量", value: "133件" },
+      { label: "配送至", value: "北京市城建工地111" },
+      { label: "到货时间", value: "2018-4-18: 17:55" },
+      { label: "订单状态", value: "未调度" }
+    ],
     items: [
       {
         type: 'radio',
