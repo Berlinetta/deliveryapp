@@ -12,16 +12,15 @@
       <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="{{item.title}}" subtitle="{{item.subtitle}}" />
     </view> -->
 
-    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物一" subtitle="¥2400.00" />
+    <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物1" subtitle="¥2400.00" />
     <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物2" subtitle="¥687.00" />
     <iPreview items="{{previewItems}}" showSecondaryAction="{{false}}" primaryActionText="编辑订单" />
     <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物3" subtitle="¥300.00" />
     <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物4" subtitle="¥1400.00" />
     <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="货物5" subtitle="¥500.00" />
-   
 
     <block wx:if="{{true}}">
-      <view style="margin-top:15px;">
+      <view style="margin-top:15px;margin-bottom:15px;">
         <iPager currentPageIndex="0" totalCount="5" bindonchange="hanldePagerChange"></iPager>
       </view>
     </block>
