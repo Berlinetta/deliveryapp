@@ -51,7 +51,7 @@ Page({
     //all fields in UI: arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, 
     //constructionSiteAddress, constructionSiteName, constructorCompanyName, payType, submissionDateTime
 
-    const { arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, constructionSiteAddress, constructionSiteName, constructorCompanyName, payType, submissionDateTime } = e.detail.value;
+    const { arrivalDate, arrivalTime, cargoCount, cargoModel, cargoPrice, cargoUnit, consigneeTelephone, constructionSiteAddress, payType, submissionDateTime } = e.detail.value;
     const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
     const totalPrice = parseFloat(cargoPrice) * parseFloat(cargoCount);
     const orderInfo = {
@@ -85,9 +85,9 @@ Page({
       arrivalTime: {
         required: true//tel: true,
       },
-      constructionSiteName: {
-        required: true
-      },
+      // constructionSiteName: {
+      //   required: true
+      // },
       cargoType: {
         required: true
       },
@@ -109,9 +109,9 @@ Page({
       arrivalTime: {
         required: "请输入到货时间"
       },
-      constructionSiteName: {
-        required: "请输入工地名称"
-      },
+      // constructionSiteName: {
+      //   required: "请输入工地名称"
+      // },
       cargoType: {
         required: "请输入货物种类"
       },

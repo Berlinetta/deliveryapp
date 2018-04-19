@@ -16,7 +16,7 @@
         <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="{{myUserInfo.name}}" />
         <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="{{myUserInfo.userTypeName}}" />
         <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="{{myUserInfo.phone}}" />
-        <iNavigator url="../newMember/newMember" title="添加用户" />
+        <!-- <iNavigator url="../newMember/newMember" title="添加用户" /> -->
       </view>
 
       <block wx:if="{{isSeller}}">

@@ -17,16 +17,39 @@ Page({
     urls: [],
     wxUserInfo: {},
     myUserInfo: {},
-    isAdmin: true,
-    isSeller: true
+    isAdmin: false,
+    isSeller: false,
+    isAnonymous: true,
+  },
+  showModal(obj, confirmCallback, cancelCallback) {
+    wx.showModal({
+      content: obj.msg,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm && confirmCallback) {
+          confirmCallback();
+        }
+        if (res.cancel && cancelCallback) {
+          cancelCallback();
+        }
+      }
+    })
   },
   onLoad: function () {
-    const AS = new AuthorizationService();
-    const { wxUserInfo, myUserInfo } = app.globalData;
-    //this.setData({ isAdmin: AS.isAdmin() });
-    //this.setData({ isSeller: AS.isSeller() || AS.isAdmin() });
-    const userTypeName = Models.UserTypeName[myUserInfo.type];
-    this.setData({ wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, { userTypeName }) });
-    this.setData({ urls: this.data.manageActions.map(a => a.url) });
+    if (this.data.isAnonymous) {
+      this.showModal({ msg: "已提交注册，请等待管理员确认。" }, () => {
+        wx.navigateTo({
+          url: '../newMember/newMember'
+        })
+      });
+    } else {
+      const AS = new AuthorizationService();
+      const { wxUserInfo, myUserInfo } = app.globalData;
+      //this.setData({ isAdmin: AS.isAdmin() });
+      //this.setData({ isSeller: AS.isSeller() || AS.isAdmin() });
+      const userTypeName = Models.UserTypeName[myUserInfo.type];
+      this.setData({ wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, { userTypeName }) });
+      this.setData({ urls: this.data.manageActions.map(a => a.url) });
+    }
   }
 });
