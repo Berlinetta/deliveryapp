@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "管理订单",
-  "usingComponents": {
-    "iPager": "../../components/iPager/iPager",
-    "iNavigator": "../../components/iNavigator/iNavigator"
-  }
-}
