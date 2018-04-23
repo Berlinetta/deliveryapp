@@ -14,6 +14,7 @@ Page({
 		cargoModelIndex: 0,
 		cargoUnit: "",
 		cargoPrice: 0,
+		cargoCount: 0,
 		payTypes: ["线上支付", "线下支付"],
 		payTypeIndex: 0,
 		date: moment().add(1, 'days').format('YYYY-MM-DD'),
@@ -49,7 +50,7 @@ Page({
 			productName: selectedProduct.proName,
 			proNum: cargoCount,
 			proPrice: selectedProduct.proPrice,
-			proSumPrice: totalPrice,
+			proSumPrice: totalPrice,				
 			proModel: selectedProduct.proModel
 		};
 		ApiSdk.OrdersService.createOrder(orderInfo).then(() => {

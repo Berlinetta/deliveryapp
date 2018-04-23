@@ -1,30 +1,29 @@
 <view class="page">
-  <view class="page__bd">
-    <view class="weui-cells__title">新建订单</view>
-    <view class="weui-cells weui-cells_after-title" style="padding-top:5px">
+    <view class="page__bd">
+        <view class="weui-cells__title">新建订单</view>
+        <view class="weui-cells weui-cells_after-title" style="padding-top:5px">
 
-      <form bindsubmit="formSubmit">
-        <iDropdown name="cargoType" title="货物种类" bindonchange="handleCargoTypeChange" values="{{cargoTypes}}" value="{{cargoTypeIndex}}" required="{{true}}" />
-        <iDropdown name="cargoModel" title="货物型号" values="{{cargoModels}}" value="{{cargoModelIndex}}" required="{{true}}" />
-        <iText name="cargoCount" title="货物数量" placeholder="请输入货物数量" required="{{true}}" />
-        <iLabel name="cargoUnit" title="货物数量单位" value="{{cargoUnit}}" />
-        <iDatePicker name="arrivalDate" title="到货日" value="{{date}}" startDate="2018-01-01" endDate="2019-09-01" required="{{true}}" />
-        <iDropdown name="payType" title="支付方式" values="{{payTypes}}" value="{{payTypeIndex}}" required="{{true}}" />
-        <!-- <iText name="constructionSiteName" title="工地名" placeholder="请输入工地名" required="{{true}}" />
+            <form bindsubmit="formSubmit">
+                <iDropdown name="cargoType" title="货物种类" bindonchange="handleCargoTypeChange" values="{{cargoTypes}}" value="{{cargoTypeIndex}}" required="{{true}}" />
+                <iDropdown name="cargoModel" title="货物型号" values="{{cargoModels}}" value="{{cargoModelIndex}}" required="{{true}}" />
+                <iText name="cargoCount" title="货物数量" placeholder="请输入货物数量" required="{{true}}" value="{{cargoCount}}" />
+                <iLabel name="cargoUnit" title="货物数量单位" value="{{cargoUnit}}" />
+                <iDatePicker name="arrivalDate" title="到货日" value="{{date}}" startDate="2018-01-01" endDate="2019-09-01" required="{{true}}" />
+                <iDropdown name="payType" title="支付方式" values="{{payTypes}}" value="{{payTypeIndex}}" required="{{true}}" />
+                <!-- <iText name="constructionSiteName" title="工地名" placeholder="请输入工地名" required="{{true}}" />
         <iText name="constructorCompanyName" title="建筑单位" placeholder="请输入建筑单位" /> -->
-        <iText name="constructionSiteAddress" title="工地地址" placeholder="请输入工地地址" required="{{true}}" />
-        <iTelephone value="{{tel}}" name="consigneeTelephone" title="收货人电话" placeholder="请输入收货人电话" required="{{true}}" />
-        <iLabel name="submissionDateTime" title="计划提交日期" value="{{currentDate}}" />
-        
+                <iText name="constructionSiteAddress" title="工地地址" placeholder="请输入工地地址" required="{{true}}" />
+                <iTelephone value="{{tel}}" name="consigneeTelephone" title="收货人电话" placeholder="请输入收货人电话" required="{{true}}" />
+                <iLabel name="submissionDateTime" title="计划提交日期" value="{{currentDate}}" />
 
-        <view style='padding-top:10px'>
-          <button style="width:95%" class="weui-btn" type="primary" form-type="submit">提交订单</button>
-        </view>
-        <view style='padding-top:3px;padding-bottom:10px'>
-          <button style="width:95%" bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
-        </view>
-      </form>
+                <view style='padding-top:10px'>
+                    <button style="width:95%" class="weui-btn" type="primary" form-type="submit">提交订单</button>
+                </view>
+                <view style='padding-top:3px;padding-bottom:10px'>
+                    <button style="width:95%" bindtap="cancelSubmit" class="weui-btn" type="warn">放弃提交</button>
+                </view>
+            </form>
 
+        </view>
     </view>
-  </view>
 </view>
