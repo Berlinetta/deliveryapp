@@ -25,8 +25,8 @@ class AuthorizationService {
     return this.isUserType(Models.UserType.Driver);
   }
 
-  isAnomymous() {
-    return this.isUserType(Models.UserType.Anomymous);
+  isAnonymous() {
+    return this.isUserType(Models.UserType.Anonymous);
   }
 }
 

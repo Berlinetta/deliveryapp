@@ -15,7 +15,7 @@
       <view class='personal-info'>
         <iNavigator url="../manageSellers/manageSellers" title="姓名" subtitle="{{myUserInfo.name}}" />
         <iNavigator url="../manageSellers/manageSellers" title="角色" subtitle="{{myUserInfo.userTypeName}}" />
-        <iNavigator url="../manageSellers/manageSellers" title="手机" subtitle="{{myUserInfo.phone}}" />
+        <iNavigator url="../manageSellermanageActionss/manageSellers" title="手机" subtitle="{{myUserInfo.phone}}" />
         <!-- <iNavigator url="../newMember/newMember" title="添加用户" /> -->
       </view>
 
