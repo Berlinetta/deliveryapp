@@ -1,24 +1,27 @@
-<view class="weui-form-preview">
-    <view class="weui-form-preview__bd">
-        <view wx:for="{{items}}">
-            <view class="weui-form-preview__item">
-                <view class="weui-form-preview__label">{{item.label}}</view>
-                <view class="weui-form-preview__value">{{item.value}}</view>
+<block wx:if="{{visible}}">
+    <view class="weui-form-preview">
+        <view class="weui-form-preview__bd">
+            <view wx:for="{{items}}">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">{{item.label}}</view>
+                    <view class="weui-form-preview__value">{{item.value}}</view>
+                </view>
             </view>
         </view>
+        <view class="weui-form-preview__ft">
+            <block wx:if="{{showSecondaryAction}}">
+                <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">
+                    {{secondaryActionText}}
+                </navigator>
+            </block>
+            <block wx:else></block>
+            <block wx:if="{{showPrimaryAction}}">
+                <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">
+                    {{primaryActionText}}
+                </navigator>
+            </block>
+            <block wx:else></block>
+        </view>
     </view>
-    <view class="weui-form-preview__ft">
-        <block wx:if="{{showSecondaryAction}}">
-            <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">
-                {{secondaryActionText}}
-            </navigator>
-        </block>
-        <block wx:else></block>
-        <block wx:if="{{showPrimaryAction}}">
-            <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">
-                {{primaryActionText}}
-            </navigator>
-        </block>
-        <block wx:else></block>
-    </view>
-</view>
+</block>
+<block wx:else></block>

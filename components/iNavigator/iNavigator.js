@@ -1,25 +1,28 @@
 Component({
-  properties: {
-    url: {
-      type: String,
-      value: "",
+    properties: {
+        url: {
+            type: String,
+            value: "",
+        },
+        title: {
+            type: String,
+            value: "",
+        },
+        subtitle: {
+            type: String,
+            value: "",
+        }
     },
-    title: {
-      type: String,
-      value: "",
+    data: {
     },
-    subtitle: {
-      type: String,
-      value: "",
+    methods: {
+        updateValue: function (e) {
+            this.setData({
+                value: e.detail.value
+            })
+        },
+        ontap: function () {
+            this.triggerEvent('ontap');
+        }
     }
-  },
-  data: {
-  },
-  methods: {
-    updateValue: function (e) {
-      this.setData({
-        value: e.detail.value
-      })
-    }
-  }
 })

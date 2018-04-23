@@ -14,9 +14,17 @@ const UserTypeName = {
   [UserType.Admin]: "管理员"
 }; 
 
+const OrderStatus = {
+    "1": "未调度",
+    "2": "调度中",
+    "3": "未完成",
+    "4": "已完成"
+};
+
 const Models = {
   UserType,
-  UserTypeName
+  UserTypeName,
+  OrderStatus
 };
 
 export default Models;

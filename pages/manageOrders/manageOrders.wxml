@@ -8,9 +8,10 @@
         <template is="searchbar" />
         <template is="filterbar" data="{{ ...$wux.filterbar }}" />
 
-        <view wx:for="{{tableData}}">
-            <iNavigator url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" title="{{item.title}}" subtitle="{{item.subtitle}}" />
-			<iPreview items="{{previewItems}}" showSecondaryAction="{{false}}" primaryActionText="编辑订单" />
+        <view wx:for="{{tableData}}" wx:for-index="idx">
+            <iNavigator id="{{idx}}" bindontap="tapToPreview" title="{{item.title}}" subtitle="{{item.subtitle}}" />
+			 <iPreview items="{{previewItems}}" visible="{{item.previewing}}" showSecondaryAction="{{false}}" primaryActionText="编辑订单" /> 
+            <!-- url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" -->
         </view>
 
         <block wx:if="{{true}}">

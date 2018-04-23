@@ -1,6 +1,6 @@
-<navigator url="{{url}}">
-  <view class="weui-cell navigator-border">
-    <view class="weui-cell__bd">{{title}}</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{subtitle}}</view>
-  </view>
+<navigator url="{{url}}" bindtap="ontap">
+    <view class="weui-cell navigator-border">
+        <view class="weui-cell__bd">{{title}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{subtitle}}</view>
+    </view>
 </navigator>
