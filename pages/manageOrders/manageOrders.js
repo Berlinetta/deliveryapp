@@ -1,6 +1,7 @@
 import { $wuxFilterBar, $wuxRefresher } from '../../packages/wux/wux.js'
 import ApiSdk from "../../sdk/ApiSdk";
 import Models from "../../services/models/Models.js";
+import Util from "../../utils/util.js";
 
 Page({
     data: {
@@ -178,18 +179,23 @@ Page({
         });
     },
     onShow() {
-        ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(res => {
-            if (res.data && res.data.success == "1") {
-                const orders = res.data.orderList.map((o) => {
-                    return Object.assign({}, o, {
-                        ordNumber: o.ordNumber,
-                        title: o.ordAddress,
-                        subtitle: o.ordStatus,
+        ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(orders => {
+            orders.forEach((orderPromise, index) => {
+                orderPromise.then((o) => {
+                    let productName = "";
+                    if (o.products && o.products.length > 0) {
+                        productName = o.products[0].productName;
+                    }
+                    const od = Object.assign({}, o, {
+                        title: productName,
+                        subtitle: "",
                         previewing: false
                     });
+                    const tableData = this.data.tableData;
+                    tableData[index] = od;
+                    this.setData({ tableData });
                 });
-                this.setData({ tableData: orders });
-            }
+            });
         });
     },
     touchstart(e) {
@@ -212,16 +218,28 @@ Page({
             tableData[i].previewing = !(tableData[i].previewing);
         }
         this.setData({ tableData });
-        if (tableData[currentIndex].previewing) {
-            const { ordAddress, ordStatus } = tableData[currentIndex];
-            const previewItems = [
-                { label: "型号", value: "型号1" },
-                { label: "数量", value: 0 },
-                { label: "配送至", value: ordAddress },
-                { label: "到货时间", value: "" },
-                { label: "订单状态", value: Models.OrderStatus[ordStatus] }
-            ];
-            this.setData({ previewItems });
+        const currentOrder = tableData[currentIndex];
+        if (currentOrder.previewing) {
+            const products = currentOrder.products;
+            if (products.length > 0) {
+                const { ordAddress, ordStatus } = currentOrder;
+                const { proModel, proNum } = products[0];
+                const previewItems = [
+                    { label: "型号", value: proModel },
+                    { label: "数量", value: proNum },
+                    { label: "配送至", value: ordAddress },
+                    { label: "到货时间", value: "" },
+                    { label: "订单状态", value: Models.OrderStatus[ordStatus] }
+                ];
+                this.setData({ previewItems });
+            }
         }
+    },
+    tapToEditOrder(e) {
+        const currentIndex = parseInt(e.target.id);
+        const order = this.data.tableData[currentIndex];
+        wx.navigateTo({
+            url: Util.formatUnicorn('../editOrder/editOrder?ordNumber={0}', order.ordNumber)
+        })
     }
 });

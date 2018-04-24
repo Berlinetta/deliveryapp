@@ -9,6 +9,10 @@ Component({
             type: Array,
             value: [],
         },
+        primaryUrl: {
+            type: String,
+            value: ""
+        },
         showPrimaryAction: {
             type: Boolean,
             value: true,
@@ -16,6 +20,10 @@ Component({
         primaryActionText: {
             type: String,
             value: "Primary Action"
+        },
+        secondaryUrl: {
+            type: String,
+            value: ""
         },
         showSecondaryAction: {
             type: Boolean,
@@ -29,5 +37,11 @@ Component({
     data: {
     },
     methods: {
+        onPrimaryTap: function () {
+            this.triggerEvent('onPrimaryTap');
+        },
+        onSecondaryTap: function () {
+            this.triggerEvent('onSecondaryTap');
+        }
     }
 })

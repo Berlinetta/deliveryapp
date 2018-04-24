@@ -10,13 +10,13 @@
         </view>
         <view class="weui-form-preview__ft">
             <block wx:if="{{showSecondaryAction}}">
-                <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">
+                <navigator url="{{secondaryUrl}}" bindtap="onSecondaryTap" class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">
                     {{secondaryActionText}}
                 </navigator>
             </block>
             <block wx:else></block>
             <block wx:if="{{showPrimaryAction}}">
-                <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">
+                <navigator url="{{primaryUrl}}" bindtap="onPrimaryTap" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">
                     {{primaryActionText}}
                 </navigator>
             </block>

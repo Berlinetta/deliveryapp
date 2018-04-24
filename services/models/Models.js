@@ -14,6 +14,7 @@ const UserTypeName = {
   [UserType.Admin]: "管理员"
 }; 
 
+//1.调度中 2.分配司机 3. 送货中 4.完成 5.现金下单
 const OrderStatus = {
     "1": "未调度",
     "2": "调度中",

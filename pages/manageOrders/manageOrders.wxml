@@ -10,8 +10,7 @@
 
         <view wx:for="{{tableData}}" wx:for-index="idx">
             <iNavigator id="{{idx}}" bindontap="tapToPreview" title="{{item.title}}" subtitle="{{item.subtitle}}" />
-			 <iPreview items="{{previewItems}}" visible="{{item.previewing}}" showSecondaryAction="{{false}}" primaryActionText="编辑订单" /> 
-            <!-- url="../editOrder/editOrder?ordNumber={{item.ordNumber}}" -->
+            <iPreview id="{{idx}}" items="{{previewItems}}" visible="{{item.previewing}}" bindonPrimaryTap="tapToEditOrder" showSecondaryAction="{{false}}" primaryActionText="编辑订单" />
         </view>
 
         <block wx:if="{{true}}">
