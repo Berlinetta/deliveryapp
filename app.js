@@ -6,18 +6,19 @@ App({
 		wx.login({
 			success: function (res) {
 				if (res.code) {
-					ApiSdk.AuthenticationService.getOpenId(res.code).then((openid) => {
+					const openIdPromise = ApiSdk.AuthenticationService.getOpenId(res.code).then((openid) => {
 						console.log("wechatid:" + openid);
-						that.globalData.wechatId = openid;
+						//that.globalData.wechatId = openid;
 					}).then(function () {
-						ApiSdk.MembersService.getMember(that.globalData.wechatId).then(res => {
+						const myUserInfoPromise = ApiSdk.MembersService.getMember(that.globalData.wechatId).then(res => {
 							if (res.data && res.data.success == "1") {
 								that.globalData.myUserInfo = res.data.member;
 							}
 						});
-						//todo: for debugging.
+						that.globalData.myUserInfoPromise = myUserInfoPromise;
 						global.globalData = that.globalData;
 					});
+					that.globalData.openIdPromise = openIdPromise;
 				}
 			}
 		});
@@ -33,9 +34,11 @@ App({
 		});
 	},
 	globalData: {
-		wechatId: "",
+		wechatId: "2001",//2001:销售 2002:调度 2003:司机
 		wxUserInfo: null,
 		myUserInfo: null,
 		products: []
-	}
+	},
+	openIdPromise: null,
+	myUserInfoPromise: null
 })

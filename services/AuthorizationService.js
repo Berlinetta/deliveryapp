@@ -1,33 +1,37 @@
 import Models from "./models/Models.js";
 
 class AuthorizationService {
-  constructor() {
-    this.app = getApp();
-  }
+	constructor() {
+		this.app = getApp();
+	}
 
-  isUserType(userType) {
-    return this.app.globalData.myUserInfo.type == userType;
-  }
+	isUserType(userType) {
+		const myUserInfo = this.app.globalData.myUserInfo;
+		if (myUserInfo) {
+			return this.app.globalData.myUserInfo.type == userType;
+		}
+		return false;
+	}
 
-  isAdmin() {
-    return this.isUserType(Models.UserType.Admin);
-  }
+	isAdmin() {
+		return this.isUserType(Models.UserType.Admin);
+	}
 
-  isDispatcher() {
-    return this.isUserType(Models.UserType.Dispatcher);
-  }
+	isDispatcher() {
+		return this.isUserType(Models.UserType.Dispatcher);
+	}
 
-  isSeller() {
-    return this.isUserType(Models.UserType.Seller);
-  }
+	isSeller() {
+		return this.isUserType(Models.UserType.Seller);
+	}
 
-  isDriver() {
-    return this.isUserType(Models.UserType.Driver);
-  }
+	isDriver() {
+		return this.isUserType(Models.UserType.Driver);
+	}
 
-  isAnonymous() {
-    return this.isUserType(Models.UserType.Anonymous);
-  }
+	isAnonymous() {
+		return this.isUserType(Models.UserType.Anonymous);
+	}
 }
 
 //const instance = new AuthorizationService();

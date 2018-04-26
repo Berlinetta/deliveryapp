@@ -1,51 +1,49 @@
 <view class="page">
 
-  <view class="page__bd">
-    <view class="weui-cells__title">编辑订单</view>
-    <view class="weui-cells weui-cells_after-title">
-      <iLabel name="cargoType" title="货物种类" value="货物2" />
-      <iLabel name="cargoModel" title="货物型号" value="型号3" />
-      <iLabel name="cargoCount" title="货物数量" value="122件" />
-      <iLabel name="cargoPrice" title="单价" value="¥22.80" />
-      <iLabel name="arrivalDate" title="到货日" value="2018-4-18 15:22" />
-      <iLabel name="payType" title="支付方式" value="线下支付" />
-      <iLabel name="constructionSiteAddress" title="工地地址" value="北京市城建工地1" />
-      <iLabel name="consigneeTelephone" title="收货人电话" value="13555989876" />
-      <iLabel name="submissionDateTime" title="计划提交日期" value="2018-4-18 13:25" />
-      <!-- only visible for dispatcher -->
-      <block wx:if="{{isDispatcher}}">
-        <iDropdown name="driver" title="配送人" values="{{drivers}}" value="{{driverIndex}}" required="{{true}}" />
-      </block>
-      <block wx:else>
-        <iLabel name="driver" title="配送人" value="李四" />
-      </block>
-
-      <block wx:if="{{isDriver}}">
-        <iDropdown name="orderStatus" title="订单状态" values="{{orderStatusArr}}" value="{{orderStatusIndex}}" required="{{true}}" />
-      </block>
-      <block wx:else>
-        <iLabel name="orderStatus" title="订单状态" value="未调度" />
-      </block>
-
-      <block wx:if="{{isDriver && orderFailed}}">
-        <view class="weui-cells__title">未完成原因</view>
+    <view class="page__bd">
+        <view class="weui-cells__title">编辑订单</view>
         <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <textarea class="weui-textarea" placeholder="请输入未完成原因" style="height: 3.3em" />
-              <view class="weui-textarea-counter">0/300</view>
-            </view>
-          </view>
-        </view>
-      </block>
-      <block wx:else></block>
 
-      <view style='padding-top:10px'>
-        <button style="width:95%;" class="weui-btn" type="primary" bindtap="showTopTips">保存订单</button>
-      </view>
-      <view style='padding-top:3px;padding-bottom:15px;'>
-        <button style="width:95%;" class="weui-btn" type="warn">放弃修改</button>
-      </view>
+            <form bindsubmit="formSubmit">
+                <iLabel name="cargoType" title="货物种类" value="{{orderInfo.title}}" />
+                <iLabel name="cargoModel" title="货物型号" value="{{orderInfo.products[0].proModel}}" />
+                <iLabel name="cargoCount" title="货物数量" value="{{orderInfo.products[0].proNum}}" />
+                <!-- <iLabel name="arrivalDate" title="到货日" value="{{orderInfo.products[0].createTime}}" /> -->
+                <iLabel name="constructionSiteAddress" title="工地地址" value="{{orderInfo.ordAddress}}" />
+                <!-- <iLabel name="consigneeTelephone" title="收货人电话" value="13555989876" />
+      <iLabel name="submissionDateTime" title="计划提交日期" value="2018-4-18 13:25" /> -->
+                <!-- only visible for dispatcher -->
+                <block wx:if="{{isDispatcher}}">
+                    <iDropdown name="driver" title="配送人" values="{{driverNames}}" value="{{driverIndex}}" required="{{true}}" />
+                    <iDropdown name="car" title="配送车辆" values="{{carNumbers}}" value="{{carNumberIndex}}" required="{{true}}" />
+                </block>
+                <block wx:else>
+                    <iLabel name="driver" title="配送人" value="李四" />
+                </block>
+
+                <iLabel name="orderStatus" title="订单状态" value="未调度" />
+
+                <block wx:if="{{isDriver && orderFailed}}">
+                    <view class="weui-cells__title">未完成原因</view>
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">
+                                <textarea class="weui-textarea" placeholder="请输入未完成原因" style="height: 3.3em" />
+                                <view class="weui-textarea-counter">0/300</view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:else></block>
+
+                <view style='padding-top:10px'>
+                    <button style="width:95%;" class="weui-btn" type="primary" form-type="submit">确定调度</button>
+                </view>
+                <view style='padding-top:3px;padding-bottom:15px;'>
+                    <button style="width:95%;" class="weui-btn" type="warn" bindtap="cancelSubmit">放弃调度</button>
+                </view>
+
+            </form>
+        </view>
     </view>
-  </view>
 </view>
