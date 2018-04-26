@@ -44,14 +44,15 @@ Page({
 		const orderInfo = {
 			wechatId: app.globalData.wechatId,
 			ordAddress: constructionSiteAddress,
-			ordMoney: totalPrice,
-			payType: parseInt(payType) + 1,
-			productId: selectedProduct.id,
-			productName: selectedProduct.proName,
-			proNum: cargoCount,
-			proPrice: selectedProduct.proPrice,
-			proSumPrice: totalPrice,				
-			proModel: selectedProduct.proModel
+			orderDetail: [{
+				payType: parseInt(payType) + 1,
+				productId: selectedProduct.id,
+				productName: selectedProduct.proName,
+				proNum: cargoCount,
+				proPrice: selectedProduct.proPrice,
+				proSumPrice: totalPrice,
+				proModel: selectedProduct.proModel
+			}],
 		};
 		ApiSdk.OrdersService.createOrder(orderInfo).then(() => {
 			Util.showModal({ msg: "提交成功" }, () => { wx.navigateBack(); });
