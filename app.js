@@ -5,12 +5,17 @@ import Promise from "./packages/bluebird/index";
 App({
     onLaunch: function () {
         const that = this;
-        that.wechatIdP = BasicInfoService.getWechatId();
-        that.wxUserInfoP = BasicInfoService.getWxUserInfo();
-        that.myUserInfoP = BasicInfoService.getMyUserInfo();
-        that.productsP = ApiSdk.ProductsService.getProducts();
-        that.basicInfoP = Promise.props([that.wechatIdP, that.wxUserInfoP, that.myUserInfoP, that.productsP]).then(() => {
-            that.globalData.wechatId = 1;
+        const obj = {
+            wechatId: BasicInfoService.getWechatId(),
+            wxUserInfo: BasicInfoService.getWxUserInfo(),
+            myUserInfo: BasicInfoService.getMyUserInfo(),
+            products: ApiSdk.ProductsService.getProducts()
+        };
+        that.basicInfoPromise = Promise.props(obj).then((res) => {
+            const {wechatId, wxUserInfo, myUserInfo, products} = res;
+            const basicInfo = {wechatId, wxUserInfo, myUserInfo, products};
+            Object.assign(that.globalData, basicInfo);
+            return basicInfo;
         });
     },
     globalData: {
@@ -19,8 +24,5 @@ App({
         wxUserInfo: null,
         myUserInfo: null
     },
-    wechatIdP: null,
-    productsP: null,
-    wxUserInfoP: null,
-    myUserInfoP: null
+    basicInfoPromise: Promise.reject()
 });
