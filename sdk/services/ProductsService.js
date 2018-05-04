@@ -13,7 +13,7 @@ class ProductsService extends BaseService {
     getModels() {
         return this.getRequest('/productApi/productModelList.shtml').then(res => {
             if (res.data && res.data.success == "1") {
-                return res.data.productModelList;
+                return res.data.productList;
             }
             return [];
         });

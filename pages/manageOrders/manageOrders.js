@@ -183,7 +183,7 @@ Page({
     },
     onShow() {
         app.basicInfoPromise.then(() => {
-            ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(orders => {
+            ApiSdk.OrdersService.getPagedOrders(1, 100, 1).then(orders => {
                 orders.forEach((orderPromise, index) => {
                     orderPromise.then((o) => {
                         let productName = "#";
