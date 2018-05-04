@@ -48,14 +48,14 @@ Page({
             wechatId: app.globalData.wechatId,
             ordAddress: constructionSiteAddress,
             payType: parseInt(payType) + 1,
-            orderDetail: [{
+            orderDetail: JSON.stringify([{
                 productId: selectedProduct.id,
                 productName: selectedProduct.proName,
                 proNum: cargoCount,
                 proPrice: selectedProduct.proPrice,
                 proSumPrice: totalPrice,
                 proModel: selectedModel.id
-            }]
+            }])
         };
         ApiSdk.OrdersService.createOrder(orderInfo).then(() => {
             Util.showModal({msg: "提交成功"}, () => {
