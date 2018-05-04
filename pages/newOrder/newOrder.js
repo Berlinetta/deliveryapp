@@ -7,12 +7,10 @@ const app = getApp();
 
 Page({
     data: {
-        currentDate: moment().format('YYYY-MM-DD'),
         cargoTypes: [],
         cargoTypeIndex: 0,
         cargoModels: [],
         cargoModelIndex: 0,
-        cargoUnit: "",
         cargoPrice: 0,
         cargoCount: 0,
         payTypes: ["线上支付", "线下支付"],
@@ -35,19 +33,18 @@ Page({
             Util.showModal(error);
             return false;
         }
-        //all fields in UI: arrivalDate, cargoCount, cargoModel, cargoUnit, consigneeTelephone, constructionSiteAddress,
-        // payType, submissionDateTime
-        const {
-            arrivalDate, cargoCount, cargoModel, cargoUnit, consigneeTelephone, constructionSiteAddress, payType,
-            submissionDateTime
-        } = e.detail.value;
+        //all fields in UI: arrivalDate, cargoCount, cargoModel, consigneeTelephone, constructionSiteAddress, payType
+        const {arrivalDate, cargoCount, cargoModel, consigneeTelephone, constructionSiteAddress, payType} = e.detail.value;
         const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
         const selectedModel = app.globalData.models[parseInt(cargoModel)];
         const totalPrice = parseFloat(this.data.cargoPrice) * parseFloat(cargoCount);
         const orderInfo = {
             wechatId: app.globalData.wechatId,
             ordAddress: constructionSiteAddress,
+            ordUser: "",
+            ordPhone: consigneeTelephone,
             payType: parseInt(payType) + 1,
+            endOrderTime: arrivalDate,
             orderDetail: JSON.stringify([{
                 productId: selectedProduct.id,
                 productName: selectedProduct.proName,
@@ -120,7 +117,6 @@ Page({
         const selectedProduct = products[productIndex];
         this.setData({
             cargoTypeIndex: productIndex,
-            cargoUnit: selectedProduct.proUnit,
             cargoPrice: selectedProduct.proPrice
         });
     },

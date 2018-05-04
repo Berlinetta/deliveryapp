@@ -122,10 +122,12 @@ Page({
                 groups: ['001', '002', '003']
             }
         ],
-        tableData: []
+        tableData: [],
+        pageIndex: 0,
+        totalCount: 0
     },
     onLoad() {
-        this.$wuxFilterBar = $wuxFilterBar.init({
+        this.filterBar = $wuxFilterBar.init({
             items: this.data.items,
             onChange: (checkedItems, items) => {
                 const params = {};
@@ -155,7 +157,7 @@ Page({
                   }
                 }); */
 
-                this.$wuxFilterBar.onCloseSelect();
+                this.filterBar.onCloseSelect();
             }
         });
         this.refresher = new $wuxRefresher({
@@ -164,25 +166,17 @@ Page({
             },
             onRefresh() {
                 console.log('onRefresh');
-                setTimeout(() => {
-                    const tableData = this.scope.data.tableData;
-
-                    tableData.unshift({
-                        title: "ddd",
-                        subtitle: '由各种物质组成。'
-                    });
-
-                    this.scope.setData({
-                        tableData
-                    });
-
+                this.scope.initData().then(() => {
                     this.events.emit(`scroll.refreshComplete`);
-                }, 2000);
+                });
             }
         });
+        this.initData();
     },
     onShow() {
-        app.basicInfoPromise.then(() => {
+    },
+    initData() {
+        return app.basicInfoPromise.then(() => {
             ApiSdk.OrdersService.getPagedOrders(1, 100, 1).then(orders => {
                 orders.forEach((orderPromise, index) => {
                     orderPromise.then((o) => {
@@ -234,7 +228,7 @@ Page({
                     {label: "型号", value: proModel},
                     {label: "数量", value: proNum},
                     {label: "配送至", value: ordAddress},
-                    {label: "到货时间", value: ""},
+                    {label: "到货时间", value: currentOrder.endOrderTime},
                     {label: "订单状态", value: Models.OrderStatus[ordStatus]}
                 ];
                 this.setData({previewItems});
@@ -247,5 +241,8 @@ Page({
         wx.navigateTo({
             url: Util.formatUnicorn('../editOrder/editOrder?orderInfo={0}', JSON.stringify(order))
         });
+    },
+    handlePagerChange() {
+
     }
 });
