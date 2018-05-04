@@ -3,7 +3,6 @@ import Promise from "../packages/bluebird/index";
 
 class BasicInfoService {
     constructor() {
-        this.app = getApp();
     }
 
     getLoginCode() {
@@ -28,6 +27,9 @@ class BasicInfoService {
                 console.log("wechatid:" + openid);
                 return openid;
             });
+        }).catch((e) => {
+            console.log("getWechatId error: " + e.toString());
+            return "";
         });
     }
 
@@ -52,6 +54,9 @@ class BasicInfoService {
                 }
                 return {};
             });
+        }).catch((e) => {
+            console.log("getMyUserInfo error: " + e.toString());
+            return {};
         });
     }
 }

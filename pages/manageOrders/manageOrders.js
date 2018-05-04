@@ -1,8 +1,8 @@
 import {$wuxFilterBar, $wuxRefresher} from '../../packages/wux/wux.js'
 import ApiSdk from "../../sdk/ApiSdk";
-import Models from "../../services/models/Models.js";
+import Models from "../../business/models/Models.js";
 import Util from "../../utils/util.js";
-import AS from '../../services/AuthorizationService.js';
+import AS from '../../business/AuthorizationService.js';
 
 const app = getApp();
 
@@ -186,7 +186,7 @@ Page({
             ApiSdk.OrdersService.getPagedOrders(1, 10, 1).then(orders => {
                 orders.forEach((orderPromise, index) => {
                     orderPromise.then((o) => {
-                        let productName = "";
+                        let productName = "#";
                         if (o.products && o.products.length > 0) {
                             productName = o.products[0].productName;
                         }

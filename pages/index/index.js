@@ -1,6 +1,6 @@
-import AS from '../../services/AuthorizationService.js';
-import Models from '../../services/models/Models.js';
-import Constants from '../../services/models/Constants.js';
+import AS from '../../business/AuthorizationService.js';
+import Models from '../../business/models/Models.js';
+import Constants from '../../business/models/Constants.js';
 import Util from "../../utils/util.js";
 
 const app = getApp();

@@ -1,5 +1,5 @@
 import ApiSdk from "../../sdk/ApiSdk";
-import AS from '../../services/AuthorizationService.js';
+import AS from '../../business/AuthorizationService.js';
 import Util from "../../utils/util.js";
 
 const app = getApp();

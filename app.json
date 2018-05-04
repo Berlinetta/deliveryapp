@@ -4,8 +4,6 @@
     "pages/index/index",
     "pages/newOrder/newOrder",
     "pages/editOrder/editOrder",
-    "pages/apiDemo/wxrequest/wxrequest",
-    "pages/apiDemo/wxresource/wxresource",
     "pages/newMember/newMember"
   ],
   "window": {
