@@ -2,6 +2,7 @@ import moment from "../../packages/moment/moment.min.js";
 import WxValidate from "../../packages/wx-validate/WxValidate.js";
 import ApiSdk from "../../sdk/ApiSdk.js";
 import Util from "../../utils/util.js";
+import $wuxLoading from '../../packages/wux/loading/loading.js'
 
 const app = getApp();
 
@@ -11,10 +12,12 @@ Page({
         cargoTypeIndex: 0,
         cargoModels: [],
         cargoModelIndex: 0,
+        cargoCounts: ["15000以下", "15000以上"],
         cargoPrice: 0,
         cargoCount: 0,
         payTypes: ["线上支付", "线下支付"],
         payTypeIndex: 0,
+        ordAddresses: ["address 1", "address 2", "address 3"],
         date: moment().add(1, 'days').format('YYYY-MM-DD'),
         tel: {
             countryCodeIndex: 0,
@@ -33,32 +36,33 @@ Page({
             Util.showModal(error);
             return false;
         }
-        //all fields in UI: arrivalDate, cargoCount, cargoModel, consigneeTelephone, constructionSiteAddress, payType
-        const {arrivalDate, cargoCount, cargoModel, consigneeTelephone, constructionSiteAddress, payType} = e.detail.value;
+        const {arrivalDate, cargoCount, cargoModel, ordPhone, ordAddress, ordUser, payType}
+            = e.detail.value;
         const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
         const selectedModel = app.globalData.models[parseInt(cargoModel)];
-        const totalPrice = parseFloat(this.data.cargoPrice) * parseFloat(cargoCount);
         const orderInfo = {
             wechatId: app.globalData.wechatId,
-            ordAddress: constructionSiteAddress,
-            ordUser: "",
-            ordPhone: consigneeTelephone,
+            ordAddress: this.data.ordAddresses[parseInt(ordAddress)],
+            ordUser,
+            ordPhone: ordPhone.number,
             payType: parseInt(payType) + 1,
             endOrderTime: arrivalDate,
             orderDetail: JSON.stringify([{
                 productId: selectedProduct.id,
                 productName: selectedProduct.proName,
-                proNum: cargoCount,
+                proNum: this.data.cargoCounts[parseInt(cargoCount)],
                 proPrice: selectedProduct.proPrice,
-                proSumPrice: totalPrice,
                 proModel: selectedModel.id
             }])
         };
+        $wuxLoading.show({text: "订单生成中..."});
         ApiSdk.OrdersService.createOrder(orderInfo).then(() => {
+            $wuxLoading.hide();
             Util.showModal({msg: "提交成功"}, () => {
                 wx.navigateBack();
             });
         }).catch((res) => {
+            $wuxLoading.hide();
             Util.showModal({
                 msg: "提交失败！错误详情：" + res.toString()
             });
@@ -81,7 +85,7 @@ Page({
             cargoCount: {
                 required: true
             },
-            consigneeTelephone: {
+            ordPhone: {
                 telephoneRequired: true,
                 telephone: true
             }
@@ -99,7 +103,7 @@ Page({
             cargoCount: {
                 required: "请输入货物数量"
             },
-            consigneeTelephone: {
+            ordPhone: {
                 telephoneRequired: "请输入收货人电话",
                 telephone: "请输入正确的收货人电话"
             }

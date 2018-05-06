@@ -9,9 +9,7 @@
                 <iLabel name="cargoModel" title="货物型号" value="{{orderInfo.products[0].proModel}}" />
                 <iLabel name="cargoCount" title="货物数量" value="{{orderInfo.products[0].proNum}}" />
                 <!-- <iLabel name="arrivalDate" title="到货日" value="{{orderInfo.products[0].createTime}}" /> -->
-                <iLabel name="constructionSiteAddress" title="工地地址" value="{{orderInfo.ordAddress}}" />
-                <!-- <iLabel name="consigneeTelephone" title="收货人电话" value="13555989876" />
-      <iLabel name="submissionDateTime" title="计划提交日期" value="2018-4-18 13:25" /> -->
+                <iLabel name="ordAddress" title="工地地址" value="{{orderInfo.ordAddress}}" />
                 <!-- only visible for dispatcher -->
                 <block wx:if="{{isDispatcher}}">
                     <iDropdown name="driver" title="配送人" values="{{driverNames}}" value="{{driverIndex}}" required="{{true}}" />
