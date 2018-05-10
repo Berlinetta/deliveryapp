@@ -15,7 +15,7 @@
 
         <block wx:if="{{true}}">
             <view style="margin-top:15px;margin-bottom:15px;">
-                <iPager currentPageIndex="0" totalCount="{{totalCount}}" bindonchange="handlePagerChange"></iPager>
+                <iPager currentPageIndex="{{pageIndex}}" totalCount="{{totalCount}}" bindonchange="handlePagerChange"></iPager>
             </view>
         </block>
         <block wx:else></block>

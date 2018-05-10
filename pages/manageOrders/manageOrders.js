@@ -124,7 +124,8 @@ Page({
         ],
         tableData: [],
         pageIndex: 0,
-        totalCount: 0
+        totalCount: 0,
+        pageSize: 10
     },
     onLoad() {
         this.filterBar = $wuxFilterBar.init({
@@ -177,7 +178,9 @@ Page({
     },
     initData() {
         return app.basicInfoPromise.then(() => {
-            ApiSdk.OrdersService.getPagedOrders(1, 100, 1).then(orders => {
+            ApiSdk.OrdersService.getPagedOrders(1, this.data.pageSize, 1).then((data) => {
+                const {orders, pageSize, pageNow, sumSize} = data;
+                this.setData({pageIndex: parseInt(pageNow) - 1, totalCount: parseInt(sumSize)});
                 orders.forEach((orderPromise, index) => {
                     orderPromise.then((o) => {
                         let productName = "#";

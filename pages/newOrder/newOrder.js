@@ -76,13 +76,7 @@ Page({
             arrivalDate: {
                 required: true
             },
-            cargoType: {
-                required: true
-            },
-            cargoModel: {
-                required: true
-            },
-            cargoCount: {
+            ordUser: {
                 required: true
             },
             ordPhone: {
@@ -94,14 +88,8 @@ Page({
             arrivalDate: {
                 required: "请输入到货日"
             },
-            cargoType: {
-                required: "请输入货物种类"
-            },
-            cargoModel: {
-                required: "请输入货物型号"
-            },
-            cargoCount: {
-                required: "请输入货物数量"
+            ordUser: {
+                required: "请输入收货人"
             },
             ordPhone: {
                 telephoneRequired: "请输入收货人电话",
