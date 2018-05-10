@@ -13,7 +13,7 @@
             <iPreview id="{{idx}}" items="{{previewItems}}" visible="{{item.previewing}}" bindonPrimaryTap="tapToEditOrder" showSecondaryAction="{{false}}" primaryActionText="编辑订单" showPrimaryAction="{{canEditOrder}}"/>
         </view>
 
-        <block wx:if="{{true}}">
+        <block wx:if="{{showPager}}">
             <view style="margin-top:15px;margin-bottom:15px;">
                 <iPager currentPageIndex="{{pageIndex}}" totalCount="{{totalCount}}" bindonchange="handlePagerChange"></iPager>
             </view>

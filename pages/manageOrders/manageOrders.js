@@ -125,7 +125,8 @@ Page({
         tableData: [],
         pageIndex: 0,
         totalCount: 0,
-        pageSize: 10
+        pageSize: 10,
+        showPager: false
     },
     onLoad() {
         this.filterBar = $wuxFilterBar.init({
@@ -172,9 +173,10 @@ Page({
                 });
             }
         });
-        this.initData();
+        //this.initData();
     },
     onShow() {
+        this.initData();
     },
     initData() {
         return app.basicInfoPromise.then(() => {
@@ -194,7 +196,7 @@ Page({
                         });
                         const tableData = this.data.tableData;
                         tableData[index] = od;
-                        this.setData({tableData});
+                        this.setData({tableData, showPager: parseInt(sumSize) > this.data.pageSize});
                     });
                 });
             });

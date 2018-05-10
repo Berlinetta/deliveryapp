@@ -1,6 +1,8 @@
 import ApiSdk from "../../sdk/ApiSdk";
 import AS from '../../business/AuthorizationService.js';
 import Util from "../../utils/util.js";
+import $wuxLoading from "../../packages/wux/loading/loading";
+import Promise from "../../packages/bluebird/index";
 
 const app = getApp();
 
@@ -26,15 +28,26 @@ Page({
         }
     },
     onLoad: function (option) {
+        $wuxLoading.show({text: "获取订单信息中..."});
         const orderInfo = JSON.parse(option.orderInfo);
         this.setData({orderInfo});
-        ApiSdk.MembersService.getMemberList("3").then((drivers) => {
-            this.setData({drivers});
-            this.setData({driverNames: drivers.map(d => d.name)});
-        });
-        ApiSdk.CarService.getCars("1").then((cars) => {
-            this.setData({cars});
-            this.setData({carNumbers: cars.map(c => c.carNumber)});
+        const promises = {
+            drivers: ApiSdk.MembersService.getMemberList("3").then((drivers) => {
+                this.setData({drivers});
+                this.setData({driverNames: drivers.map(d => d.name)});
+            }),
+            cars: ApiSdk.CarService.getCars("1").then((cars) => {
+                this.setData({cars});
+                this.setData({carNumbers: cars.map(c => c.carNumber)});
+            })
+        };
+        Promise.props(promises).then(() => {
+            $wuxLoading.hide();
+            if (this.data.carNumbers.length < 1) {
+                Util.showModal({msg: "暂无可用车辆调度"}, () => {
+                    wx.navigateBack();
+                });
+            }
         });
     },
     onShow: function () {
