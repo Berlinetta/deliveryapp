@@ -13,7 +13,6 @@
                 <iText name="ordUser" title="收货人" placeholder="请输入收货人姓名" required="{{false}}" />
                 <iTelephone value="{{tel}}" name="ordPhone" title="收货人电话" placeholder="请输入收货人电话" required="{{false}}" />
                 <iDatePicker name="arrivalDate" title="到货日" value="{{date}}" startDate="2018-01-01" endDate="2019-09-01" required="{{false}}" />
-                <iDropdown name="payType" title="支付方式" values="{{payTypes}}" value="{{payTypeIndex}}" required="{{false}}" />
 
                 <view style='padding-top:10px'>
                     <button style="width:95%" class="weui-btn" type="primary" form-type="submit">提交订单</button>

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "个人信息",
+  "navigationBarTitleText": "物流配送系统",
   "usingComponents": {
     "iNavigator": "../../components/iNavigator/iNavigator"
   }

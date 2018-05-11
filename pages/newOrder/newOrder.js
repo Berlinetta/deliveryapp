@@ -29,6 +29,9 @@ Page({
         const {products, models} = app.globalData;
         this.setData({cargoTypes: products.map((p) => p.proName), cargoModels: models.map(m => m.modelName)});
         this.selectProduct(this.data.cargoTypeIndex);
+        ApiSdk.AddressService.getAddresses().then((addresses) => {
+            this.setData({ordAddresses: addresses.map(a => a.siteAddress)});
+        });
     },
     formSubmit(e) {
         if (!this.wxValidate.checkForm(e)) {
@@ -36,7 +39,7 @@ Page({
             Util.showModal(error);
             return false;
         }
-        const {arrivalDate, cargoCount, cargoModel, ordPhone, ordAddress, ordUser, payType}
+        const {arrivalDate, cargoCount, cargoModel, ordPhone, ordAddress, ordUser}
             = e.detail.value;
         const selectedProduct = app.globalData.products[this.data.cargoTypeIndex];
         const selectedModel = app.globalData.models[parseInt(cargoModel)];
@@ -45,7 +48,6 @@ Page({
             ordAddress: this.data.ordAddresses[parseInt(ordAddress)],
             ordUser,
             ordPhone: ordPhone.number,
-            payType: parseInt(payType) + 1,
             endOrderTime: arrivalDate,
             orderDetail: JSON.stringify([{
                 productId: selectedProduct.id,
