@@ -1,0 +1,5 @@
+<import src="../../packages/wux/loading/loading.wxml"/>
+
+<view class="weui-cells weui-cells_after-title" style="padding-top:5px">
+    <button style="width:95%" class="weui-btn" type="primary" open-type="getUserInfo" bindtap="authorizeMe">点击授权</button>
+</view>

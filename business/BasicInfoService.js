@@ -33,9 +33,24 @@ class BasicInfoService {
         });
     }
 
+    authorize() {
+        return new Promise(function (resolve, reject) {
+            wx.authorize({
+                scope: 'scope.userInfo',
+                success() {
+                    resolve(true);
+                },
+                fail() {
+                    reject(false);
+                }
+            });
+        });
+    }
+
     getWxUserInfo() {
         return new Promise(function (resolve, reject) {
             wx.getUserInfo({
+                //withCredentials: true,
                 success: res => {
                     resolve(res.userInfo);
                 },
@@ -50,13 +65,34 @@ class BasicInfoService {
         return this.getWechatId().then(function (id) {
             return ApiSdk.MembersService.getMember(id).then(res => {
                 if (res.data && res.data.success == "1") {
-                    return res.data.member;
+                    if (res.data.member) {
+                        return res.data.member;
+                    }
+                    //anonymous
+                    return {type: "4"};
                 }
-                return {};
+                return null;
             });
         }).catch((e) => {
             console.log("getMyUserInfo error: " + e.toString());
             return {};
+        });
+    }
+
+    authorized() {
+        return new Promise(function (resolve, reject) {
+            wx.getSetting({
+                success: function (res) {
+                    if (res.authSetting['scope.userInfo']) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                },
+                fail: function () {
+                    reject(false);
+                }
+            });
         });
     }
 }

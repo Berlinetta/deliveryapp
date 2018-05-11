@@ -1,34 +1,35 @@
 {
-  "pages": [
-    "pages/manageOrders/manageOrders",
-    "pages/index/index",
-    "pages/newOrder/newOrder",
-    "pages/editOrder/editOrder",
-    "pages/newMember/newMember"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "物流配送系统",
-    "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "black",
-    "selectedColor": "black",
-    "backgroundColor": "#fff",
-    "list": [
-      {
-        "pagePath": "pages/manageOrders/manageOrders",
-        "text": "订单",
-        "iconPath": "resources/icons/orders_disabled.png",
-        "selectedIconPath": "resources/icons/orders.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "我的",
-        "iconPath": "resources/icons/me_disabled.png",
-        "selectedIconPath": "resources/icons/me.png"
-      }
-    ]
-  }
+    "pages": [
+        "pages/manageOrders/manageOrders",
+        "pages/index/index",
+        "pages/newOrder/newOrder",
+        "pages/editOrder/editOrder",
+        "pages/newMember/newMember",
+        "pages/authorize/authorize"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "物流配送系统",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "black",
+        "selectedColor": "black",
+        "backgroundColor": "#fff",
+        "list": [
+            {
+                "pagePath": "pages/manageOrders/manageOrders",
+                "text": "订单",
+                "iconPath": "resources/icons/orders_disabled.png",
+                "selectedIconPath": "resources/icons/orders.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "我的",
+                "iconPath": "resources/icons/me_disabled.png",
+                "selectedIconPath": "resources/icons/me.png"
+            }
+        ]
+    }
 }

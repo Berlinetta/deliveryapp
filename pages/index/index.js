@@ -2,6 +2,7 @@ import AS from '../../business/AuthorizationService.js';
 import Models from '../../business/models/Models.js';
 import Constants from '../../business/models/Constants.js';
 import Util from "../../utils/util.js";
+import BasicInfoService from "../../business/BasicInfoService";
 
 const app = getApp();
 
@@ -24,27 +25,50 @@ Page({
         myUserInfo: {},
         isAdmin: false,
         isSeller: false,
-        isAnonymous: true
+        isAnonymous: true,
+        authorized: false
     },
     onLoad: function () {
     },
     onShow: function () {
         app.basicInfoPromise.then(() => {
-            this.setData({isAdmin: AS.isAdmin()});
-            this.setData({isAnonymous: AS.isAnonymous()});
-            this.setData({isSeller: AS.isSeller() || AS.isAdmin()});
-            if (AS.isAnonymous()) {
-                Util.showModal({msg: Constants.PleaseRegister}, () => {
+            BasicInfoService.getMyUserInfo().then((res) => {
+                app.globalData.myUserInfo = res;
+                const {authorized} = app.globalData;
+                if (!authorized) {
                     wx.navigateTo({
-                        url: '../newMember/newMember'
+                        url: '../authorize/authorize'
                     })
-                });
-            } else {
-                const {wxUserInfo, myUserInfo} = app.globalData;
-                const userTypeName = Models.UserTypeName[myUserInfo.type];
-                this.setData({wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, {userTypeName})});
-                this.setData({urls: this.data.manageActions.map(a => a.url)});
-            }
+                } else {
+                    this.setData({isAdmin: AS.isAdmin()});
+                    this.setData({isAnonymous: AS.isAnonymous()});
+                    this.setData({isSeller: AS.isSeller() || AS.isAdmin()});
+                    if (AS.isAnonymous()) {
+                        Util.showModal({msg: Constants.PleaseRegister}, () => {
+                            wx.navigateTo({
+                                url: '../newMember/newMember'
+                            })
+                        });
+                    } else {
+                        const {wxUserInfo, myUserInfo} = app.globalData;
+                        const userTypeName = Models.UserTypeName[myUserInfo.type];
+                        this.setData({wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, {userTypeName})});
+                        this.setData({urls: this.data.manageActions.map(a => a.url)});
+                    }
+                }
+            });
+        });
+    },
+    authorizeMe: function () {
+        BasicInfoService.authorize().then((msg) => {
+            console.log(msg);
+            BasicInfoService.getWxUserInfo().then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }).catch((e) => {
+            console.log(e);
         });
     }
 });

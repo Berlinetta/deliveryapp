@@ -6,7 +6,7 @@ const updateUserForTest = (app) => {
     app.basicInfoPromise.then(() => {
         app.globalData.wechatId = "2002";//2001:销售 2002:调度 2003:司机
         app.globalData.myUserInfo.wechatId = "2002";
-        app.globalData.myUserInfo.type = "2";
+        app.globalData.myUserInfo.type = "4";
     });
 };
 
@@ -15,14 +15,14 @@ App({
         const that = this;
         const obj = {
             wechatId: BasicInfoService.getWechatId(),
-            wxUserInfo: BasicInfoService.getWxUserInfo(),
             myUserInfo: BasicInfoService.getMyUserInfo(),
             products: ApiSdk.ProductsService.getProducts(),
-            models: ApiSdk.ProductsService.getModels()
+            models: ApiSdk.ProductsService.getModels(),
+            authorized: BasicInfoService.authorized()
         };
         that.basicInfoPromise = Promise.props(obj).then((res) => {
-            const {wechatId, wxUserInfo, myUserInfo, products, models} = res;
-            const basicInfo = {wechatId, wxUserInfo, myUserInfo, products, models};
+            const {wechatId, myUserInfo, products, models} = res;
+            const basicInfo = {wechatId, myUserInfo, products, models};
             Object.assign(that.globalData, basicInfo);
             return basicInfo;
         }).catch((e) => {
@@ -35,7 +35,8 @@ App({
         products: [],
         models: [],
         wxUserInfo: null,
-        myUserInfo: null
+        myUserInfo: null,
+        authorized: false
     },
     basicInfoPromise: Promise.reject()
 });
