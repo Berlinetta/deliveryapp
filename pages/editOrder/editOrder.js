@@ -64,7 +64,7 @@ Page({
         const {car, driver} = e.detail.value;
         const {drivers, cars, orderInfo} = this.data;
         const data = {
-            orderId: orderInfo.ordNumber,
+            orderId: orderInfo.id,
             driverId: drivers[driver].id,
             driverName: drivers[driver].name,
             vehicleId: cars[car].id,
