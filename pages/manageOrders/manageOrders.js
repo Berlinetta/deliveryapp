@@ -10,11 +10,11 @@ Page({
     data: {
         canEditOrder: false,
         previewItems: [
-            {label: "型号", value: "型号1"},
-            {label: "数量", value: "133件"},
-            {label: "配送至", value: "北京市城建工地111"},
-            {label: "到货时间", value: "2018-4-18"},
-            {label: "订单状态", value: "未调度"}
+            {label: "型号", value: ""},
+            {label: "数量", value: ""},
+            {label: "配送至", value: ""},
+            {label: "到货时间", value: ""},
+            {label: "订单状态", value: ""}
         ],
         items: [
             {
@@ -212,6 +212,13 @@ Page({
     touchend(e) {
         this.refresher.touchend(e);
     },
+    getModelNameById(modelId) {
+        if (!app.globalData.models || app.globalData.models.length == 0) {
+            return "";
+        }
+        const foundItem = app.globalData.models.find(m => m.id.toString() == modelId.toString());
+        return foundItem ? foundItem.modelName : "";
+    },
     tapToPreview(e) {
         const currentIndex = parseInt(e.target.id);
         const tableData = this.data.tableData;
@@ -230,7 +237,7 @@ Page({
                 const {ordAddress, ordStatus} = currentOrder;
                 const {proModel, proNum} = products[0];
                 const previewItems = [
-                    {label: "型号", value: proModel},
+                    {label: "型号", value: this.getModelNameById(proModel)},
                     {label: "数量", value: proNum},
                     {label: "配送至", value: ordAddress},
                     {label: "到货时间", value: currentOrder.endOrderTime},

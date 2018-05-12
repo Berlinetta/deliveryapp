@@ -25,11 +25,23 @@ Page({
                 proModel: "",
                 proNum: 0
             }]
+        },
+        modelName: ""
+    },
+    getModelNameById(modelId) {
+        if (!app.globalData.models || app.globalData.models.length == 0) {
+            return "";
         }
+        const foundItem = app.globalData.models.find(m => m.id.toString() == modelId.toString());
+        return foundItem ? foundItem.modelName : "";
     },
     onLoad: function (option) {
         $wuxLoading.show({text: "获取订单信息中..."});
-        const orderInfo = JSON.parse(option.orderInfo);
+        let orderInfo = JSON.parse(option.orderInfo);
+        if (orderInfo.products.length > 0) {
+            const modelId = orderInfo.products[0].proModel;
+            orderInfo.products[0].proModel = this.getModelNameById(modelId);
+        }
         this.setData({orderInfo});
         const promises = {
             drivers: ApiSdk.MembersService.getMemberList("3").then((drivers) => {

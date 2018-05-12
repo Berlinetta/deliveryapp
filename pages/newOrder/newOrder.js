@@ -15,9 +15,7 @@ Page({
         cargoCounts: ["15000以下", "15000以上"],
         cargoPrice: 0,
         cargoCount: 0,
-        payTypes: ["线上支付", "线下支付"],
-        payTypeIndex: 0,
-        ordAddresses: ["address 1", "address 2", "address 3"],
+        ordAddresses: [],
         date: moment().add(1, 'days').format('YYYY-MM-DD'),
         tel: {
             countryCodeIndex: 0,

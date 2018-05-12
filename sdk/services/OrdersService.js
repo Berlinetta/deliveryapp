@@ -15,7 +15,7 @@ class OrdersService extends BaseService {
                         if (opRes.data && opRes.data.success == "1") {
                             return Object.assign({}, o, {products: opRes.data.orderDetailList});
                         }
-                        return Object.assign({}, o, {products: []});
+                        return Object.assign({getModels}, o, {products: []});
                     });
                 });
                 return Object.assign({}, res.data, {orders});
