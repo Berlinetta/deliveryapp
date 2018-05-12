@@ -12,8 +12,8 @@
     </button>
   </block>
 
-  <text class="active">{{currentPageIndex+1}}</text>
-  <text>/{{totalCount}}</text>
+  <text class="active">{{pageIndex+1}}</text>
+  <text>/{{totalPages}}</text>
 
   <block wx:if="{{isNextButtonDisabled}}">
     <button disabled class="weui-btn pager-button pager-button-right" type="default" plain="true" bindtap="goToNext">

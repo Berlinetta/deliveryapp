@@ -1,52 +1,56 @@
 const getButtonStatus = function (data) {
-  return {
-    isPrevButtonDisabled: data.currentPageIndex < 1,
-    isNextButtonDisabled: data.currentPageIndex >= data.totalCount - 1,
-  };
+    return {
+        isPrevButtonDisabled: data.pageIndex < 1,
+        isNextButtonDisabled: data.pageIndex >= data.totalPages - 1
+    };
+};
+
+const getTotalPages = function (totalRecords, pageSize) {
+    const mo = totalRecords % pageSize;
+    return mo == 0 ? totalRecords / pageSize : (totalRecords - mo) / pageSize + 1;
 };
 
 Component({
-  properties: {
-    currentPageIndex: {
-      type: Number,
-      value: 0
+    properties: {
+        pageIndex: {
+            type: Number,
+            value: 0
+        },
+        pageSize: {
+            type: Number,
+            value: 0
+        },
+        totalRecords: {
+            type: Number,
+            value: 0
+        }
     },
-    totalCount: {
-      type: Number,
-      value: 0
-    }
-  },
-  data: {
-    isPrevButtonDisabled: false,
-    isNextButtonDisabled: false
-  },
-  ready: function () {
-    this.setData(getButtonStatus(this.data));
-  },
-  methods: {
-    goToPrev: function () {
-      const currIndex = this.data.currentPageIndex;
-      if (currIndex >= 1) {
-        const newData = {
-          currentPageIndex: currIndex - 1,
-          totalCount: this.data.totalCount
-        };
-        this.setData(newData);
-        this.setData(getButtonStatus(this.data));
-        this.triggerEvent('onchange', newData);
-      }
+    data: {
+        isPrevButtonDisabled: false,
+        isNextButtonDisabled: false,
+        totalPages: 0
     },
-    goToNext: function (e) {
-      const currIndex = this.data.currentPageIndex;
-      if (currIndex <= this.data.totalCount - 2) {
-        const newData = {
-          currentPageIndex: currIndex + 1,
-          totalCount: this.data.totalCount
-        };
-        this.setData(newData);
+    ready: function () {
+        const {totalRecords, pageSize} = this.data;
+        this.setData({totalPages: getTotalPages(totalRecords, pageSize)});
         this.setData(getButtonStatus(this.data));
-        this.triggerEvent('onchange', newData);
-      }
+    },
+    methods: {
+        goToPrev: function () {
+            const currIndex = this.data.pageIndex;
+            if (currIndex >= 1) {
+                this.setData({pageIndex: currIndex - 1});
+                this.setData(getButtonStatus(this.data));
+                this.triggerEvent('onchange', this.data);
+            }
+        },
+        goToNext: function () {
+            const currIndex = this.data.pageIndex;
+            if (currIndex <= this.data.totalPages - 2) {
+                this.setData({pageIndex: currIndex + 1});
+                this.setData(getButtonStatus(this.data));
+                this.triggerEvent('onchange', this.data);
+            }
+        }
     }
-  }
 });

@@ -3,6 +3,7 @@ import ApiSdk from "../../sdk/ApiSdk";
 import Models from "../../business/models/Models.js";
 import Util from "../../utils/util.js";
 import AS from '../../business/AuthorizationService.js';
+import Promise from "../../packages/bluebird/index";
 
 const app = getApp();
 
@@ -123,9 +124,9 @@ Page({
             }
         ],
         tableData: [],
-        pageIndex: 0,
+        pageIndex: 0,//starts from 0, be consistent with iPager
         totalCount: 0,
-        pageSize: 10,
+        pageSize: 3,
         showPager: false
     },
     onLoad() {
@@ -173,18 +174,18 @@ Page({
                 });
             }
         });
-        //this.initData();
     },
     onShow() {
         this.initData();
     },
     initData() {
         return app.basicInfoPromise.then(() => {
-            ApiSdk.OrdersService.getPagedOrders(1, this.data.pageSize, 1).then((data) => {
+            ApiSdk.OrdersService.getPagedOrders(1, this.data.pageSize, this.data.pageIndex + 1).then((data) => {
                 const {orders, pageSize, pageNow, sumSize} = data;
-                this.setData({pageIndex: parseInt(pageNow) - 1, totalCount: parseInt(sumSize)});
-                orders.forEach((orderPromise, index) => {
-                    orderPromise.then((o) => {
+                this.setData({totalCount: parseInt(sumSize)});
+                this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
+                Promise.all(orders).then((ordersData) => {
+                    const tableData = ordersData.map((o) => {
                         let productName = "#";
                         if (o.products && o.products.length > 0) {
                             productName = o.products[0].productName;
@@ -194,10 +195,9 @@ Page({
                             subtitle: "",
                             previewing: false
                         });
-                        const tableData = this.data.tableData;
-                        tableData[index] = od;
-                        this.setData({tableData, showPager: parseInt(sumSize) > this.data.pageSize});
+                        return od;
                     });
+                    this.setData({tableData});
                 });
             });
             this.setData({canEditOrder: (AS.isAdmin() || AS.isDispatcher())});
@@ -254,7 +254,9 @@ Page({
             url: Util.formatUnicorn('../editOrder/editOrder?orderInfo={0}', JSON.stringify(order))
         });
     },
-    handlePagerChange() {
-
+    handlePagerChange(e) {
+        const pagerData = e.detail;
+        this.setData({pageIndex: pagerData.pageIndex});
+        this.initData();
     }
 });
