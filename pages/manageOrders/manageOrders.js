@@ -126,7 +126,7 @@ Page({
         tableData: [],
         pageIndex: 0,//starts from 0, be consistent with iPager
         totalCount: 0,
-        pageSize: 3,
+        pageSize: 10,
         showPager: false
     },
     onLoad() {
