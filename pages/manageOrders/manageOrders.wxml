@@ -8,10 +8,13 @@
         <template is="searchbar" />
         <template is="filterbar" data="{{ ...$wux.filterbar }}" />
 
-        <view wx:for="{{tableData}}" wx:for-index="idx">
-            <iNavigator id="{{idx}}" bindontap="tapToPreview" title="{{item.title}}" subtitle="{{item.subtitle}}" />
-            <iPreview id="{{idx}}" items="{{previewItems}}" visible="{{item.previewing}}" bindonPrimaryTap="tapToEditOrder" showSecondaryAction="{{false}}" primaryActionText="编辑订单" showPrimaryAction="{{canEditOrder}}"/>
-        </view>
+        <block wx:if="{{tableData.length > 0}}">
+            <view wx:for="{{tableData}}" wx:for-index="idx">
+                <iNavigator id="{{idx}}" bindontap="tapToPreview" title="{{item.title}}" subtitle="{{item.subtitle}}" />
+                <iPreview id="{{idx}}" items="{{previewItems}}" visible="{{item.previewing}}" bindonPrimaryTap="tapToEditOrder" showSecondaryAction="{{false}}" primaryActionText="编辑订单" showPrimaryAction="{{canEditOrder}}" />
+            </view>
+        </block>
+        <block wx:else><view style="width:100%;text-align:center;font-size:15px;padding-top:2px;font-style:italic;color:gray;"><span>无订单</span></view></block>
 
         <block wx:if="{{showPager}}">
             <view style="margin-top:15px;margin-bottom:15px;">

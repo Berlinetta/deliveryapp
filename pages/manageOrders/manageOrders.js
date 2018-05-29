@@ -59,7 +59,8 @@ Page({
                     value: 'orderStatus',
                     children: [{
                         label: '未调度',
-                        value: "1"
+                        value: "1",
+                        checked: true
                     },
                         {
                             label: '调度中',
@@ -99,9 +100,67 @@ Page({
         pageIndex: 0,//starts from 0, be consistent with iPager
         totalCount: 0
     },
+    getQueryObj() {
+        const {type, memberId} = app.globalData.myUserInfo;
+        const {ordStatus, sortType, pageIndex, pageSize} = this.data;
+        return {ordStatus, sortType, pageNow: pageIndex + 1, pageSize, memberId, memberType: type};
+    },
+    refreshFilterBar(items) {
+        const {ordStatus, sortType} = this.data;
+        //reset orderStatus
+        const orderStatusF = items.find((o) => o.value == "orderStatus");
+        let orderStatusIndex = orderStatusF.children.findIndex((o) => o.value.toString() == ordStatus.toString());
+        orderStatusIndex = orderStatusIndex == -1 ? 0 : orderStatusIndex;
+        orderStatusF.children.forEach((c, index) => {
+            orderStatusF.children[index].checked = index == orderStatusIndex;
+        });
+        //reset creationTime
+        const creationTimeF = items.find((o) => o.value == "creationTime");
+        creationTimeF.sort = sortType.toString() == "1" ? 1 : -1;
+        //reset filter
+        const filterF = items.find((o) => o.value == "filter");
+        const osF = filterF.children.find((o) => o.value == "orderStatus");
+        osF.children.forEach((c, index) => {
+            osF.children[index].checked = index == orderStatusIndex;
+        });
+        const ctF = filterF.children.find((o) => o.value == "creationTime");
+        const ctIndex = sortType.toString() == "1" ? 0 : 1;
+        ctF.children.forEach((c, index) => {
+            ctF.children[index].checked = index == ctIndex;
+        });
+    },
+    initData() {
+        return app.basicInfoPromise.then(() => {
+            ApiSdk.OrdersService.getPagedOrders(this.getQueryObj())
+                .then((data) => {
+                    const {orders, pageSize, pageNow, sumSize} = data;
+                    this.setData({totalCount: parseInt(sumSize)});
+                    this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
+                    Promise.all(orders).then((ordersData) => {
+                        const tableData = ordersData.map((o) => {
+                            let productName = "#";
+                            if (o.products && o.products.length > 0) {
+                                productName = o.products[0].productName;
+                            }
+                            const od = Object.assign({}, o, {
+                                title: productName,
+                                subtitle: "",
+                                previewing: false
+                            });
+                            return od;
+                        });
+                        this.setData({tableData});
+                    });
+                });
+            this.setData({canEditOrder: (AS.isAdmin() || AS.isDispatcher())});
+        });
+    },
     onLoad() {
         this.filterBar = $wuxFilterBar.init({
             items: this.data.items,
+            onNotChange: (checkedItems, items) => {
+                this.refreshFilterBar(items);
+            },
             onChange: (checkedItems, items) => {
                 let changed = false;
                 checkedItems.forEach((n) => {
@@ -136,6 +195,7 @@ Page({
                 });
                 if (changed) {
                     this.initData();
+                    this.refreshFilterBar(items);
                 }
                 this.filterBar.onCloseSelect();
             }
@@ -154,37 +214,6 @@ Page({
     },
     onShow() {
         this.initData();
-    },
-    getQueryObj() {
-        const {type, memberId} = app.globalData.myUserInfo;
-        const {ordStatus, sortType, pageIndex, pageSize} = this.data;
-        return {ordStatus, sortType, pageNow: pageIndex + 1, pageSize, memberId, memberType: type};
-    },
-    initData() {
-        return app.basicInfoPromise.then(() => {
-            ApiSdk.OrdersService.getPagedOrders(this.getQueryObj())
-                .then((data) => {
-                    const {orders, pageSize, pageNow, sumSize} = data;
-                    this.setData({totalCount: parseInt(sumSize)});
-                    this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
-                    Promise.all(orders).then((ordersData) => {
-                        const tableData = ordersData.map((o) => {
-                            let productName = "#";
-                            if (o.products && o.products.length > 0) {
-                                productName = o.products[0].productName;
-                            }
-                            const od = Object.assign({}, o, {
-                                title: productName,
-                                subtitle: "",
-                                previewing: false
-                            });
-                            return od;
-                        });
-                        this.setData({tableData});
-                    });
-                });
-            this.setData({canEditOrder: (AS.isAdmin() || AS.isDispatcher())});
-        });
     },
     touchstart(e) {
         this.refresher.touchstart(e);

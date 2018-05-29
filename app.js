@@ -4,9 +4,9 @@ import Promise from "./packages/bluebird/index";
 
 const updateUserForTest = (app) => {
     app.basicInfoPromise.then(() => {
-        app.globalData.wechatId = "2001";//2001:销售 2002:调度 2003:司机
-        app.globalData.myUserInfo.wechatId = "2001";
-        app.globalData.myUserInfo.type = "1";
+        app.globalData.wechatId = "2002";//2001:销售 2002:调度 2003:司机
+        app.globalData.myUserInfo.wechatId = "2002";
+        app.globalData.myUserInfo.type = "2";
     });
 };
 

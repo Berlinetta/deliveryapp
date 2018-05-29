@@ -38,7 +38,7 @@ Page({
                 if (!authorized) {
                     wx.navigateTo({
                         url: '../authorize/authorize'
-                    })
+                    });
                 } else {
                     this.setData({isAdmin: AS.isAdmin()});
                     this.setData({isAnonymous: AS.isAnonymous()});

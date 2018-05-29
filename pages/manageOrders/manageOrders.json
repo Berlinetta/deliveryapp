@@ -3,6 +3,7 @@
   "usingComponents": {
     "iPager": "../../components/iPager/iPager",
     "iNavigator": "../../components/iNavigator/iNavigator",
-    "iPreview": "../../components/iPreview/iPreview"
+    "iPreview": "../../components/iPreview/iPreview",
+    "iLabel": "../../components/iLabel/iLabel"
   }
 }
