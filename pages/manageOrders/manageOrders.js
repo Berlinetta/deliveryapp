@@ -101,9 +101,14 @@ Page({
         totalCount: 0
     },
     getQueryObj() {
-        const {type, memberId} = app.globalData.myUserInfo;
+        const {memberId} = app.globalData.myUserInfo;
         const {ordStatus, sortType, pageIndex, pageSize} = this.data;
-        return {ordStatus, sortType, pageNow: pageIndex + 1, pageSize, memberId, memberType: type};
+        const basicParam = {ordStatus, sortType, pageNow: pageIndex + 1, pageSize};
+        if (AS.isSeller() || AS.isDriver()) {
+            const memberType = AS.isSeller() ? "1" : "2";
+            return Object.assign({}, basicParam, {memberId, memberType});
+        }
+        return basicParam;
     },
     refreshFilterBar(items) {
         const {ordStatus, sortType} = this.data;
