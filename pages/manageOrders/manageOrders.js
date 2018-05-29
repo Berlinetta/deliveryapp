@@ -24,46 +24,30 @@ Page({
                 value: 'orderStatus',
                 children: [{
                     label: '未调度',
-                    value: 'new',
+                    value: "1",
                     checked: true
                 },
                     {
                         label: '调度中',
-                        value: 'dispatching'
+                        value: "2"
                     },
                     {
                         label: '已完成',
-                        value: 'completed'
+                        value: "3"
                     },
                     {
                         label: '未完成',
-                        value: 'unfinished'
+                        value: "4"
                     }
                 ],
                 groups: ["1"]
             },
             {
-                type: 'radio',
-                label: '范围',
-                value: 'orderStatus',
-                children: [{
-                    label: '我的订单',
-                    value: 'myOrders',
-                    checked: true
-                },
-                    {
-                        label: '全部订单',
-                        value: 'allOrders'
-                    }
-                ],
-                groups: ["2"]
-            },
-            {
                 type: 'sort',
                 label: '创建时间',
-                value: 'time',
+                value: 'creationTime',
                 sort: -1,
-                groups: ["3"]
+                groups: ["2"]
             },
             {
                 type: 'filter',
@@ -72,94 +56,87 @@ Page({
                 children: [{
                     type: 'radio',
                     label: '状态',
-                    value: 'status',
+                    value: 'orderStatus',
                     children: [{
                         label: '未调度',
-                        value: 'new'
+                        value: "1"
                     },
                         {
                             label: '调度中',
-                            value: 'dispatching'
+                            value: "2"
                         },
                         {
                             label: '已完成',
-                            value: 'completed'
+                            value: "3"
                         },
                         {
                             label: '未完成',
-                            value: 'unfinished'
+                            value: "4"
                         }
                     ],
                 },
                     {
                         type: 'radio',
-                        label: '范围',
-                        value: 'range',
-                        children: [{
-                            label: '我的订单',
-                            value: 'myOrders'
-                        },
-                            {
-                                label: '全部订单',
-                                value: 'allOrders'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'radio',
                         label: '创建时间',
-                        value: 'range',
+                        value: 'creationTime',
                         children: [{
                             label: '升序',
-                            value: 'asc'
-                        },
-                            {
-                                label: '降序',
-                                value: 'desc'
-                            }
-                        ]
+                            value: '1'
+                        }, {
+                            label: '降序',
+                            value: '2'
+                        }]
                     }
                 ],
-                groups: ['001', '002', '003']
+                groups: ['001', '002']
             }
         ],
         tableData: [],
-        pageIndex: 0,//starts from 0, be consistent with iPager
-        totalCount: 0,
+        showPager: false,
+        ordStatus: "1",
+        sortType: "2",//1: asc, 2: desc
         pageSize: 10,
-        showPager: false
+        pageIndex: 0,//starts from 0, be consistent with iPager
+        totalCount: 0
     },
     onLoad() {
         this.filterBar = $wuxFilterBar.init({
             items: this.data.items,
             onChange: (checkedItems, items) => {
-                const params = {};
-
-                /* checkedItems.forEach((n) => {
-                  if (n.checked) {
-                    if (n.value === 'updated') {
-                      const selected = n.children.filter((n) => n.checked).map((n) => n.value).join(' ')
-                      params.sort = n.value
-                      params.order = selected
-                    } else if (n.value === 'stars') {
-                      params.sort = n.value
-                      params.order = n.sort === 1 ? 'asc' : 'desc'
-                    } else if (n.value === 'forks') {
-                      params.sort = n.value
-                    } else if (n.value === 'filter') {
-                      n.children.filter((n) => n.selected).forEach((n) => {
-                        if (n.value === 'language') {
-                          const selected = n.children.filter((n) => n.checked).map((n) => n.value).join(' ')
-                          params.language = selected
-                        } else if (n.value === 'query') {
-                          const selected = n.children.filter((n) => n.checked).map((n) => n.value).join(' ')
-                          params.query = selected
+                let changed = false;
+                checkedItems.forEach((n) => {
+                    if (n.checked) {
+                        if (n.value === 'orderStatus') {
+                            const checkedItem = n.children.find((o) => o.checked);
+                            if (checkedItem && checkedItem.value != this.data.ordStatus) {
+                                changed = true;
+                                this.setData({ordStatus: checkedItem.value});
+                            }
+                        } else if (n.value === 'creationTime') {
+                            const sortType = n.sort === 1 ? "1" : "2";
+                            if (sortType != this.data.sortType) {
+                                changed = true;
+                                this.setData({sortType});
+                            }
+                        } else if (n.value === 'filter') {
+                            const ordStatusFilter = n.children.find((o) => o.value === "orderStatus");
+                            const checkedOrdStatus = ordStatusFilter.children.find((o) => o.checked);
+                            if (checkedOrdStatus && checkedOrdStatus.value != this.data.ordStatus) {
+                                changed = true;
+                                this.setData({ordStatus: checkedOrdStatus.value});
+                            }
+                            const creationTimeFilter = n.children.find((o) => o.value === "creationTime");
+                            const checkedCreationTime = creationTimeFilter.children.find((o) => o.checked);
+                            if (checkedCreationTime && checkedCreationTime.value != this.data.sortType) {
+                                changed = true;
+                                this.setData({sortType: checkedCreationTime.value});
+                            }
                         }
-                      })
                     }
-                  }
-                }); */
-
+                });
+                if (changed) {
+                    this.initData();
+                }
                 this.filterBar.onCloseSelect();
             }
         });
@@ -178,28 +155,34 @@ Page({
     onShow() {
         this.initData();
     },
+    getQueryObj() {
+        const {type, memberId} = app.globalData.myUserInfo;
+        const {ordStatus, sortType, pageIndex, pageSize} = this.data;
+        return {ordStatus, sortType, pageNow: pageIndex + 1, pageSize, memberId, memberType: type};
+    },
     initData() {
         return app.basicInfoPromise.then(() => {
-            ApiSdk.OrdersService.getPagedOrders(1, this.data.pageSize, this.data.pageIndex + 1).then((data) => {
-                const {orders, pageSize, pageNow, sumSize} = data;
-                this.setData({totalCount: parseInt(sumSize)});
-                this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
-                Promise.all(orders).then((ordersData) => {
-                    const tableData = ordersData.map((o) => {
-                        let productName = "#";
-                        if (o.products && o.products.length > 0) {
-                            productName = o.products[0].productName;
-                        }
-                        const od = Object.assign({}, o, {
-                            title: productName,
-                            subtitle: "",
-                            previewing: false
+            ApiSdk.OrdersService.getPagedOrders(this.getQueryObj())
+                .then((data) => {
+                    const {orders, pageSize, pageNow, sumSize} = data;
+                    this.setData({totalCount: parseInt(sumSize)});
+                    this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
+                    Promise.all(orders).then((ordersData) => {
+                        const tableData = ordersData.map((o) => {
+                            let productName = "#";
+                            if (o.products && o.products.length > 0) {
+                                productName = o.products[0].productName;
+                            }
+                            const od = Object.assign({}, o, {
+                                title: productName,
+                                subtitle: "",
+                                previewing: false
+                            });
+                            return od;
                         });
-                        return od;
+                        this.setData({tableData});
                     });
-                    this.setData({tableData});
                 });
-            });
             this.setData({canEditOrder: (AS.isAdmin() || AS.isDispatcher())});
         });
     },

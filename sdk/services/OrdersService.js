@@ -6,9 +6,8 @@ class OrdersService extends BaseService {
         return this.getRequest('/orderApi/orderDetailList.shtml', data);
     }
 
-    getPagedOrders(orderStatus, pageSize, pageNow) {
-        const data = {ordStatus: orderStatus, pageSize, pageNow};
-        return this.getRequest('/orderApi/orderList.shtml', data).then((res) => {
+    getPagedOrders(options) {
+        return this.getRequest('/orderApi/orderList.shtml', options).then((res) => {
             if (res.data && res.data.success == "1") {
                 const orders = res.data.orderList.map((o) => {
                     return this.getOrderProducts(o.ordNumber).then((opRes) => {
