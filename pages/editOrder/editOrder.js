@@ -13,7 +13,7 @@ Page({
         orderFailed: true,
         driverNames: [],
         driverIndex: 0,
-        orderStatusArr: ["调度中", "未完成", "已完成"],
+        orderStatusArr: ["配送中", "未完成", "已完成"],
         orderStatusIndex: 0,
         carNumbers: [],
         carNumberIndex: 0,

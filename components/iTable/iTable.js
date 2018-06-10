@@ -14,7 +14,7 @@ Component({
                     checked: true
                 },
                     {
-                        label: '调度中',
+                        label: '配送中',
                         value: 'dispatching'
                     },
                     {

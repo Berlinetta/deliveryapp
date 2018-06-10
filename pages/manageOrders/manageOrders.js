@@ -1,4 +1,4 @@
-import {$wuxFilterBar, $wuxRefresher} from '../../packages/wux/wux.js'
+import { $wuxFilterBar, $wuxRefresher } from '../../packages/wux/wux.js'
 import ApiSdk from "../../sdk/ApiSdk";
 import Models from "../../business/models/Models.js";
 import Util from "../../utils/util.js";
@@ -11,11 +11,11 @@ Page({
     data: {
         canEditOrder: false,
         previewItems: [
-            {label: "型号", value: ""},
-            {label: "数量", value: ""},
-            {label: "配送至", value: ""},
-            {label: "到货时间", value: ""},
-            {label: "订单状态", value: ""}
+            { label: "型号", value: "" },
+            { label: "数量", value: "" },
+            { label: "配送至", value: "" },
+            { label: "到货时间", value: "" },
+            { label: "订单状态", value: "" }
         ],
         items: [
             {
@@ -27,18 +27,18 @@ Page({
                     value: "1",
                     checked: true
                 },
-                    {
-                        label: '调度中',
-                        value: "2"
-                    },
-                    {
-                        label: '已完成',
-                        value: "3"
-                    },
-                    {
-                        label: '未完成',
-                        value: "4"
-                    }
+                {
+                    label: '配送中',
+                    value: "2"
+                },
+                {
+                    label: '已完成',
+                    value: "3"
+                },
+                {
+                    label: '未完成',
+                    value: "4"
+                }
                 ],
                 groups: ["1"]
             },
@@ -62,32 +62,32 @@ Page({
                         value: "1",
                         checked: true
                     },
-                        {
-                            label: '调度中',
-                            value: "2"
-                        },
-                        {
-                            label: '已完成',
-                            value: "3"
-                        },
-                        {
-                            label: '未完成',
-                            value: "4"
-                        }
+                    {
+                        label: '配送中',
+                        value: "2"
+                    },
+                    {
+                        label: '已完成',
+                        value: "3"
+                    },
+                    {
+                        label: '未完成',
+                        value: "4"
+                    }
                     ],
                 },
-                    {
-                        type: 'radio',
-                        label: '创建时间',
-                        value: 'creationTime',
-                        children: [{
-                            label: '升序',
-                            value: '1'
-                        }, {
-                            label: '降序',
-                            value: '2'
-                        }]
-                    }
+                {
+                    type: 'radio',
+                    label: '创建时间',
+                    value: 'creationTime',
+                    children: [{
+                        label: '升序',
+                        value: '1'
+                    }, {
+                        label: '降序',
+                        value: '2'
+                    }]
+                }
                 ],
                 groups: ['001', '002']
             }
@@ -101,17 +101,17 @@ Page({
         totalCount: 0
     },
     getQueryObj() {
-        const {memberId} = app.globalData.myUserInfo;
-        const {ordStatus, sortType, pageIndex, pageSize} = this.data;
-        const basicParam = {ordStatus, sortType, pageNow: pageIndex + 1, pageSize};
+        const { memberId } = app.globalData.myUserInfo;
+        const { ordStatus, sortType, pageIndex, pageSize } = this.data;
+        const basicParam = { ordStatus, sortType, pageNow: pageIndex + 1, pageSize };
         if (AS.isSeller() || AS.isDriver()) {
             const memberType = AS.isSeller() ? "1" : "2";
-            return Object.assign({}, basicParam, {memberId, memberType});
+            return Object.assign({}, basicParam, { memberId, memberType });
         }
         return basicParam;
     },
     refreshFilterBar(items) {
-        const {ordStatus, sortType} = this.data;
+        const { ordStatus, sortType } = this.data;
         //reset orderStatus
         const orderStatusF = items.find((o) => o.value == "orderStatus");
         let orderStatusIndex = orderStatusF.children.findIndex((o) => o.value.toString() == ordStatus.toString());
@@ -138,9 +138,9 @@ Page({
         return app.basicInfoPromise.then(() => {
             ApiSdk.OrdersService.getPagedOrders(this.getQueryObj())
                 .then((data) => {
-                    const {orders, pageSize, pageNow, sumSize} = data;
-                    this.setData({totalCount: parseInt(sumSize)});
-                    this.setData({showPager: parseInt(sumSize) > this.data.pageSize});
+                    const { orders, pageSize, pageNow, sumSize } = data;
+                    this.setData({ totalCount: parseInt(sumSize) });
+                    this.setData({ showPager: parseInt(sumSize) > this.data.pageSize });
                     Promise.all(orders).then((ordersData) => {
                         const tableData = ordersData.map((o) => {
                             let productName = "#";
@@ -154,10 +154,10 @@ Page({
                             });
                             return od;
                         });
-                        this.setData({tableData});
+                        this.setData({ tableData });
                     });
                 });
-            this.setData({canEditOrder: (AS.isAdmin() || AS.isDispatcher())});
+            this.setData({ canEditOrder: (AS.isAdmin() || AS.isDispatcher()) });
         });
     },
     onLoad() {
@@ -174,26 +174,26 @@ Page({
                             const checkedItem = n.children.find((o) => o.checked);
                             if (checkedItem && checkedItem.value != this.data.ordStatus) {
                                 changed = true;
-                                this.setData({ordStatus: checkedItem.value});
+                                this.setData({ ordStatus: checkedItem.value });
                             }
                         } else if (n.value === 'creationTime') {
                             const sortType = n.sort === 1 ? "1" : "2";
                             if (sortType != this.data.sortType) {
                                 changed = true;
-                                this.setData({sortType});
+                                this.setData({ sortType });
                             }
                         } else if (n.value === 'filter') {
                             const ordStatusFilter = n.children.find((o) => o.value === "orderStatus");
                             const checkedOrdStatus = ordStatusFilter.children.find((o) => o.checked);
                             if (checkedOrdStatus && checkedOrdStatus.value != this.data.ordStatus) {
                                 changed = true;
-                                this.setData({ordStatus: checkedOrdStatus.value});
+                                this.setData({ ordStatus: checkedOrdStatus.value });
                             }
                             const creationTimeFilter = n.children.find((o) => o.value === "creationTime");
                             const checkedCreationTime = creationTimeFilter.children.find((o) => o.checked);
                             if (checkedCreationTime && checkedCreationTime.value != this.data.sortType) {
                                 changed = true;
-                                this.setData({sortType: checkedCreationTime.value});
+                                this.setData({ sortType: checkedCreationTime.value });
                             }
                         }
                     }
@@ -214,6 +214,12 @@ Page({
                 this.scope.initData().then(() => {
                     this.events.emit(`scroll.refreshComplete`);
                 });
+            }
+        });
+        app.basicInfoPromise.then(() => {
+            if (AS.isDriver()) {
+                this.data.items[0].children.shift();
+                this.data.items[2].children[0].children.shift();
             }
         });
     },
@@ -246,21 +252,21 @@ Page({
             }
             tableData[i].previewing = !(tableData[i].previewing);
         }
-        this.setData({tableData});
+        this.setData({ tableData });
         const currentOrder = tableData[currentIndex];
         if (currentOrder.previewing) {
             const products = currentOrder.products;
             if (products.length > 0) {
-                const {ordAddress, ordStatus} = currentOrder;
-                const {proModel, proNum} = products[0];
+                const { ordAddress, ordStatus } = currentOrder;
+                const { proModel, proNum } = products[0];
                 const previewItems = [
-                    {label: "型号", value: this.getModelNameById(proModel)},
-                    {label: "数量", value: proNum},
-                    {label: "配送至", value: ordAddress},
-                    {label: "到货时间", value: currentOrder.endOrderTime},
-                    {label: "订单状态", value: Models.OrderStatus[ordStatus]}
+                    { label: "型号", value: this.getModelNameById(proModel) },
+                    { label: "数量", value: proNum },
+                    { label: "配送至", value: ordAddress },
+                    { label: "到货时间", value: currentOrder.endOrderTime },
+                    { label: "订单状态", value: Models.OrderStatus[ordStatus] }
                 ];
-                this.setData({previewItems});
+                this.setData({ previewItems });
             }
         }
     },
@@ -273,7 +279,7 @@ Page({
     },
     handlePagerChange(e) {
         const pagerData = e.detail;
-        this.setData({pageIndex: pagerData.pageIndex});
+        this.setData({ pageIndex: pagerData.pageIndex });
         this.initData();
     }
 });
