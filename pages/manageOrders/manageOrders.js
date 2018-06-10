@@ -143,12 +143,8 @@ Page({
                     this.setData({ showPager: parseInt(sumSize) > this.data.pageSize });
                     Promise.all(orders).then((ordersData) => {
                         const tableData = ordersData.map((o) => {
-                            let productName = "#";
-                            if (o.products && o.products.length > 0) {
-                                productName = o.products[0].productName;
-                            }
                             const od = Object.assign({}, o, {
-                                title: productName,
+                                title: o.ordNumber,
                                 subtitle: "",
                                 previewing: false
                             });
@@ -157,7 +153,6 @@ Page({
                         this.setData({ tableData });
                     });
                 });
-            this.setData({ canEditOrder: (AS.isAdmin() || AS.isDispatcher()) });
         });
     },
     onLoad() {
@@ -258,8 +253,9 @@ Page({
             const products = currentOrder.products;
             if (products.length > 0) {
                 const { ordAddress, ordStatus } = currentOrder;
-                const { proModel, proNum } = products[0];
+                const { proModel, proNum, productName } = products[0];
                 const previewItems = [
+                    { label: "产品名", value: productName },
                     { label: "型号", value: this.getModelNameById(proModel) },
                     { label: "数量", value: proNum },
                     { label: "配送至", value: ordAddress },
@@ -267,6 +263,7 @@ Page({
                     { label: "订单状态", value: Models.OrderStatus[ordStatus] }
                 ];
                 this.setData({ previewItems });
+                this.setData({ canEditOrder: (AS.isAdmin() || AS.isDispatcher()) && ordStatus == "1" });
             }
         }
     },
