@@ -18,12 +18,11 @@ App({
             myUserInfo: BasicInfoService.getMyUserInfo(),
             products: ApiSdk.ProductsService.getProducts(),
             models: ApiSdk.ProductsService.getModels(),
-            authorized: BasicInfoService.authorized()
+            authorized: BasicInfoService.authorized(),
+            wxUserInfo: BasicInfoService.getWxUserInfo()
         };
         that.basicInfoPromise = Promise.props(obj).then((res) => {
-            const {wechatId, myUserInfo, products, models} = res;
-            const basicInfo = {wechatId, myUserInfo, products, models};
-            Object.assign(that.globalData, basicInfo);
+            Object.assign(that.globalData, res);
             return basicInfo;
         }).catch((e) => {
             console.log(e);

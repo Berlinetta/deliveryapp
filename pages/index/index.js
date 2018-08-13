@@ -25,8 +25,7 @@ Page({
         myUserInfo: {},
         isAdmin: false,
         isSeller: false,
-        isAnonymous: true,
-        authorized: false
+        isAnonymous: true
     },
     onLoad: function () {
     },
@@ -57,18 +56,6 @@ Page({
                     }
                 }
             });
-        });
-    },
-    authorizeMe: function () {
-        BasicInfoService.authorize().then((msg) => {
-            console.log(msg);
-            BasicInfoService.getWxUserInfo().then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                console.log(err);
-            });
-        }).catch((e) => {
-            console.log(e);
         });
     }
 });
