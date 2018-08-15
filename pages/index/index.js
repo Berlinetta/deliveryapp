@@ -21,7 +21,6 @@ Page({
             {imageUrl: '../../resources/icons/manage/money.png', text: "运费", url: "../manageFees/manageFees"}
         ],
         urls: [],
-        wxUserInfo: {},
         myUserInfo: {},
         isAdmin: false,
         isSeller: false,
@@ -33,27 +32,20 @@ Page({
         app.basicInfoPromise.then(() => {
             BasicInfoService.getMyUserInfo().then((res) => {
                 app.globalData.myUserInfo = res;
-                const {authorized} = app.globalData;
-                if (!authorized) {
-                    wx.navigateTo({
-                        url: '../authorize/authorize'
+                this.setData({isAdmin: AS.isAdmin()});
+                this.setData({isAnonymous: AS.isAnonymous()});
+                this.setData({isSeller: AS.isSeller() || AS.isAdmin()});
+                if (AS.isAnonymous()) {
+                    Util.showModal({msg: Constants.PleaseRegister}, () => {
+                        wx.navigateTo({
+                            url: '../newMember/newMember'
+                        })
                     });
                 } else {
-                    this.setData({isAdmin: AS.isAdmin()});
-                    this.setData({isAnonymous: AS.isAnonymous()});
-                    this.setData({isSeller: AS.isSeller() || AS.isAdmin()});
-                    if (AS.isAnonymous()) {
-                        Util.showModal({msg: Constants.PleaseRegister}, () => {
-                            wx.navigateTo({
-                                url: '../newMember/newMember'
-                            })
-                        });
-                    } else {
-                        const {wxUserInfo, myUserInfo} = app.globalData;
-                        const userTypeName = Models.UserTypeName[myUserInfo.type];
-                        this.setData({wxUserInfo, myUserInfo: Object.assign({}, myUserInfo, {userTypeName})});
-                        this.setData({urls: this.data.manageActions.map(a => a.url)});
-                    }
+                    const {myUserInfo} = app.globalData;
+                    const userTypeName = Models.UserTypeName[myUserInfo.type];
+                    this.setData({myUserInfo: Object.assign({}, myUserInfo, {userTypeName})});
+                    this.setData({urls: this.data.manageActions.map(a => a.url)});
                 }
             });
         });

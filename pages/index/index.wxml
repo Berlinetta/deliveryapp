@@ -8,8 +8,8 @@
     <view class="weui-cells weui-cells_after-title">
 
       <view class="userinfo">
-        <image class="userinfo-avatar" src="{{wxUserInfo.avatarUrl}}" background-size="cover"></image>
-        <text class="userinfo-nickname">{{wxUserInfo.nickName}}</text>
+        <open-data class="userinfo-avatar" style="display:flex;overflow:hidden;" type="userAvatarUrl" mode="cover"></open-data>
+        <open-data type="userNickName"></open-data>
       </view>
 
       <view class='personal-info'>

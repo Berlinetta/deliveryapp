@@ -18,11 +18,10 @@ App({
             myUserInfo: BasicInfoService.getMyUserInfo(),
             products: ApiSdk.ProductsService.getProducts(),
             models: ApiSdk.ProductsService.getModels(),
-            authorized: BasicInfoService.authorized(),
-            wxUserInfo: BasicInfoService.getWxUserInfo()
+            authorized: BasicInfoService.authorized()
         };
         that.basicInfoPromise = Promise.props(obj).then((res) => {
-            Object.assign(that.globalData, res);
+            const basicInfo =  Object.assign(that.globalData, res);
             return basicInfo;
         }).catch((e) => {
             console.log(e);
@@ -33,7 +32,6 @@ App({
         wechatId: "",
         products: [],
         models: [],
-        wxUserInfo: null,
         myUserInfo: null,
         authorized: false
     },
